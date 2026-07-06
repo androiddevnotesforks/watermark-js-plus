@@ -62,6 +62,65 @@ describe('core watermark module', () => {
     }
   })
 
+  test('non-style watermark attribute mutation should not recreate watermark', async () => {
+    const parentElement = document.createElement('div')
+    document.body.appendChild(parentElement)
+    let destroyCount = 0
+    const watermark = new Watermark({
+      content: 'hello my watermark',
+      width: 50,
+      height: 50,
+      zIndex: 2147483646,
+      parent: parentElement,
+      onBeforeDestroy: () => {
+        destroyCount++
+      },
+    })
+    try {
+      await watermark.create()
+      const watermarkDom = parentElement.lastElementChild
+
+      watermarkDom?.setAttribute('data-test', 'changed')
+      await sleep(20)
+
+      expect(destroyCount).toBe(0)
+      expect(parentElement.contains(watermarkDom)).toBe(true)
+    } finally {
+      watermark.destroy()
+      parentElement.remove()
+    }
+  })
+
+  test('style watermark attribute mutation should recreate watermark', async () => {
+    const parentElement = document.createElement('div')
+    document.body.appendChild(parentElement)
+    let destroyCount = 0
+    const watermark = new Watermark({
+      content: 'hello my watermark',
+      width: 50,
+      height: 50,
+      zIndex: 2147483646,
+      parent: parentElement,
+      onBeforeDestroy: () => {
+        destroyCount++
+      },
+    })
+    try {
+      await watermark.create()
+      const watermarkDom = parentElement.lastElementChild
+
+      watermarkDom?.setAttribute('style', 'display:none')
+      await sleep(20)
+
+      expect(destroyCount).toBe(1)
+      expect(parentElement.contains(watermarkDom)).toBe(false)
+      expect(await watermark.check()).toBe(true)
+    } finally {
+      watermark.destroy()
+      parentElement.remove()
+    }
+  })
+
   test('text watermark expected true', async () => {
     const watermark = new Watermark({
       textBaseline: 'middle',

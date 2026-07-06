@@ -12,7 +12,7 @@ class Watermark {
   protected options: WatermarkOptions
   private parentElement: Element = document.body
   private observer?: MutationObserver
-  private parentObserve?: MutationObserver
+  private parentObserver?: MutationObserver
   private watermarkDom?: WatermarkDom
   private props?: Partial<WatermarkOptions>
   private layoutCanvas?: HTMLCanvasElement
@@ -98,7 +98,7 @@ class Watermark {
 
     if (this.options.mutationObserve) {
       try {
-        this.bindMutationObserve()
+        this.bindMutationObserver()
       } catch {
         this.options.onObserveError?.()
       }
@@ -122,7 +122,7 @@ class Watermark {
   protected remove() {
     this.options.onBeforeDestroy?.()
     this.observer?.disconnect()
-    this.parentObserve?.disconnect()
+    this.parentObserver?.disconnect()
     this.watermarkDom?.parentNode?.removeChild(this.watermarkDom)
     this.options.onDestroyed?.()
   }
@@ -189,7 +189,7 @@ class Watermark {
     return 'custom'
   }
 
-  private bindMutationObserve(): void {
+  private bindMutationObserver(): void {
     if (!this.watermarkDom) {
       return
     }
@@ -201,11 +201,12 @@ class Watermark {
     })
     this.observer.observe(this.watermarkDom, {
       attributes: true, // 属性的变动
+      attributeFilter: ['style', 'class', 'hidden', 'id'], // 仅监听会影响水印展示或标识的属性
       childList: true, // 子节点的变动（指新增，删除或者更改）
       subtree: true, // 布尔值，表示是否将该观察器应用于该节点的所有后代节点。
       characterData: true, // 节点内容或节点文本的变动。
     })
-    this.parentObserve = new MutationObserver(async (mutationsList: MutationRecord[]) => {
+    this.parentObserver = new MutationObserver(async (mutationsList: MutationRecord[]) => {
       for (const item of mutationsList) {
         const watermarkRemoved = Array.from(item.removedNodes).includes(<Node>this.watermarkDom)
         if (watermarkRemoved) {
@@ -214,7 +215,7 @@ class Watermark {
         }
       }
     })
-    this.parentObserve.observe(this.parentElement, {
+    this.parentObserver.observe(this.parentElement, {
       childList: true, // 子节点的变动（指新增，删除或者更改）
     })
   }
