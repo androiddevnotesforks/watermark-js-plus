@@ -61,50 +61,51 @@ class Watermark {
       return
     }
     this.isCreating = true
-    if (!this.validateUnique()) {
-      this.isCreating = false
-      return
-    }
-
-    if (!this.validateContent()) {
-      this.isCreating = false
-      return
-    }
-    const firstDraw = isUndefined(this.watermarkDom)
-
-    await this.watermarkCanvas?.draw()
-    this.layoutCanvas = renderLayout(this.options, <HTMLCanvasElement>this.watermarkCanvas?.getCanvas())
-    const image = convertImage(this.layoutCanvas)
-    this.watermarkCanvas?.clear()
-    this.watermarkDom = document.createElement('div')
-    const watermarkInnerDom = document.createElement('div')
-    this.watermarkDom.__WATERMARK__ = 'watermark'
-    this.watermarkDom.__WATERMARK__INSTANCE__ = this
-    const parentElementType = this.checkParentElementType()
-    this.watermarkDom.style.cssText = `
-      z-index:${this.options.zIndex}!important;display:block!important;visibility:visible!important;transform:none!important;scale:none!important;
-      ${parentElementType === 'custom' ? 'top:0!important;bottom:0!important;left:0!important;right:0!important;height:100%!important;pointer-events:none!important;position:absolute!important;' : 'position:relative!important;'}
-    `
-    const backgroundSize = generateBackgroundSize(this.options)
-    watermarkInnerDom.style.cssText = `
-      display:block!important;visibility:visible!important;pointer-events:none;top:0;bottom:0;left:0;right:0;transform:none!important;scale:none!important;
-      position:${parentElementType === 'root' ? 'fixed' : 'absolute'}!important;-webkit-print-color-adjust:exact!important;width:100%!important;height:100%!important;
-      z-index:${this.options.zIndex}!important;background-image:url(${image})!important;background-repeat:${this.options.backgroundRepeat}!important;
-      background-size:${backgroundSize[0]}px ${backgroundSize[1]}px!important;background-position:${this.options.backgroundPosition};
-      ${generateAnimationStyle(this.options.movable, this.options.backgroundRepeat)}
-    `
-    this.watermarkDom.appendChild(watermarkInnerDom)
-    this.parentElement.appendChild(this.watermarkDom)
-
-    if (this.options.mutationObserve) {
-      try {
-        this.bindMutationObserver()
-      } catch {
-        this.options.onObserveError?.()
+    try {
+      if (!this.validateUnique()) {
+        return
       }
+
+      if (!this.validateContent()) {
+        return
+      }
+      const firstDraw = isUndefined(this.watermarkDom)
+
+      await this.watermarkCanvas?.draw()
+      this.layoutCanvas = renderLayout(this.options, <HTMLCanvasElement>this.watermarkCanvas?.getCanvas())
+      const image = convertImage(this.layoutCanvas)
+      this.watermarkCanvas?.clear()
+      this.watermarkDom = document.createElement('div')
+      const watermarkInnerDom = document.createElement('div')
+      this.watermarkDom.__WATERMARK__ = 'watermark'
+      this.watermarkDom.__WATERMARK__INSTANCE__ = this
+      const parentElementType = this.checkParentElementType()
+      this.watermarkDom.style.cssText = `
+        z-index:${this.options.zIndex}!important;display:block!important;visibility:visible!important;transform:none!important;scale:none!important;
+        ${parentElementType === 'custom' ? 'top:0!important;bottom:0!important;left:0!important;right:0!important;height:100%!important;pointer-events:none!important;position:absolute!important;' : 'position:relative!important;'}
+      `
+      const backgroundSize = generateBackgroundSize(this.options)
+      watermarkInnerDom.style.cssText = `
+        display:block!important;visibility:visible!important;pointer-events:none;top:0;bottom:0;left:0;right:0;transform:none!important;scale:none!important;
+        position:${parentElementType === 'root' ? 'fixed' : 'absolute'}!important;-webkit-print-color-adjust:exact!important;width:100%!important;height:100%!important;
+        z-index:${this.options.zIndex}!important;background-image:url(${image})!important;background-repeat:${this.options.backgroundRepeat}!important;
+        background-size:${backgroundSize[0]}px ${backgroundSize[1]}px!important;background-position:${this.options.backgroundPosition};
+        ${generateAnimationStyle(this.options.movable, this.options.backgroundRepeat)}
+      `
+      this.watermarkDom.appendChild(watermarkInnerDom)
+      this.parentElement.appendChild(this.watermarkDom)
+
+      if (this.options.mutationObserve) {
+        try {
+          this.bindMutationObserver()
+        } catch {
+          this.options.onObserveError?.()
+        }
+      }
+      firstDraw && this.options.onSuccess?.()
+    } finally {
+      this.isCreating = false
     }
-    firstDraw && this.options.onSuccess?.()
-    this.isCreating = false
   }
 
   /**
@@ -189,14 +190,22 @@ class Watermark {
     return 'custom'
   }
 
+  private async recreateOnMutation(): Promise<void> {
+    try {
+      this.remove()
+      await this.create()
+    } catch {
+      this.options.onObserveError?.()
+    }
+  }
+
   private bindMutationObserver(): void {
     if (!this.watermarkDom) {
       return
     }
-    this.observer = new MutationObserver(async (mutationsList: MutationRecord[]) => {
+    this.observer = new MutationObserver((mutationsList: MutationRecord[]) => {
       if (mutationsList.length > 0) {
-        this.remove()
-        await this.create()
+        void this.recreateOnMutation()
       }
     })
     this.observer.observe(this.watermarkDom, {
@@ -206,13 +215,14 @@ class Watermark {
       subtree: true, // 布尔值，表示是否将该观察器应用于该节点的所有后代节点。
       characterData: true, // 节点内容或节点文本的变动。
     })
-    this.parentObserver = new MutationObserver(async (mutationsList: MutationRecord[]) => {
-      for (const item of mutationsList) {
-        const watermarkRemoved = Array.from(item.removedNodes).includes(<Node>this.watermarkDom)
-        if (watermarkRemoved) {
-          this.remove()
-          await this.create()
-        }
+    this.parentObserver = new MutationObserver((mutationsList: MutationRecord[]) => {
+      const watermarkDom = this.watermarkDom
+      if (!watermarkDom) {
+        return
+      }
+      const watermarkRemoved = mutationsList.some(item => Array.from(item.removedNodes).includes(watermarkDom))
+      if (watermarkRemoved) {
+        void this.recreateOnMutation()
       }
     })
     this.parentObserver.observe(this.parentElement, {
