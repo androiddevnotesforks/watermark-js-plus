@@ -1,3 +1,18 @@
+## [1.6.5](https://github.com/zhensherlock/watermark-js-plus/compare/v1.6.4...v1.6.5) (2026-07-06)
+
+
+### 🎫 Chores | 其他更新
+
+* **deps:** update actions/checkout action to v7 ([48be6e5](https://github.com/zhensherlock/watermark-js-plus/commit/48be6e5c956d3e96c1a5a34b8b4862025b6ec8ed))
+* **deps:** update codecov/codecov-action action to v7 ([364ec24](https://github.com/zhensherlock/watermark-js-plus/commit/364ec24c52ee625a73cdf0f0b57c2704ad956402))
+* update dependencies ([488e0c8](https://github.com/zhensherlock/watermark-js-plus/commit/488e0c8871be27a8f6b2392fed9db8f3f43ce336))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* prevent unnecessary watermark recreation on non-style mutations ([#1374](https://github.com/zhensherlock/watermark-js-plus/issues/1374)) ([fdd4bc8](https://github.com/zhensherlock/watermark-js-plus/commit/fdd4bc82b947338104afc0da838962fb1d71fce2))
+* stabilize watermark lifecycle and mutation recreate flow ([6985751](https://github.com/zhensherlock/watermark-js-plus/commit/69857513483c98ef7dda8fa2bf7382d7f5894907))
+
 ## [1.6.4](https://github.com/zhensherlock/watermark-js-plus/compare/v1.6.3...v1.6.4) (2026-06-24)
 
 
