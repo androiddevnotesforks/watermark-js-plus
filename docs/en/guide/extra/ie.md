@@ -14,6 +14,9 @@ import { Watermark } from 'watermark-js-plus/ie'
 
 > This ensures compatibility with IE11 and partial support for IE10 and IE9.
 
+## Blind watermark decoding
+The IE build includes a software fallback for the `overlay` and `color-burn` canvas blend modes used by blind watermark decoding. The regular build does not include this fallback, so use the `/ie` entry when decoding blind watermarks in IE11.
+
 
 ## CDN
 ```html

@@ -2,6 +2,7 @@ import type { ChangeOptionsMode, DecodeBlindWatermarkOptions, WatermarkOptions }
 import { convertImage, isFunction } from '../utils'
 import { Watermark } from './watermark'
 import { WatermarkCanvas } from './canvas'
+import { applyBlindDecodeComposite } from './blind-decode'
 import protection from '../utils/protection'
 
 /**
@@ -62,11 +63,14 @@ class BlindWatermark extends Watermark {
           throw new Error('get context error')
         }
         ctx.drawImage(img, 0, 0, width, height)
-        ctx.globalCompositeOperation = compositeOperation as any
-        ctx.fillStyle = fillColor
-        for (let i = 0; i < compositeTimes; i++) {
-          ctx.fillRect(0, 0, width, height)
-        }
+        applyBlindDecodeComposite({
+          ctx,
+          width,
+          height,
+          fillColor,
+          compositeOperation,
+          compositeTimes,
+        })
         const resultImage = convertImage(canvas)
         if (isFunction(<Function>onSuccess)) {
           onSuccess?.(resultImage)
