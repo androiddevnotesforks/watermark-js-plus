@@ -21,7 +21,7 @@ The IE build includes a software fallback for the `overlay` and `color-burn` can
 ## CDN
 ```html
 <!-- import JavaScript -->
-<script src="https://www.unpkg.com/watermark-js-plus@1.6.5/dist/ie/index.iife.min.js"></script>
+<script src="https://www.unpkg.com/watermark-js-plus@1.6.6/dist/ie/index.iife.min.js"></script>
 ```
 
 > We recommend our users to lock version when using CDN. Please refer to [unpkg.com](https://unpkg.com/) for more information.

@@ -1,3 +1,28 @@
+## [1.6.6](https://github.com/zhensherlock/watermark-js-plus/compare/v1.6.5...v1.6.6) (2026-07-14)
+
+
+### 🎫 Chores | 其他更新
+
+* **deps:** update dependency @rollup/plugin-babel to v7 ([8d5044d](https://github.com/zhensherlock/watermark-js-plus/commit/8d5044d8fda308bf086f0036ac0df82d8fa7cb36))
+* **deps:** update dependency @rollup/plugin-commonjs to v29 ([76b2111](https://github.com/zhensherlock/watermark-js-plus/commit/76b2111e20ec27195b2cb7ea14021152955d7991))
+* **deps:** update dependency @rollup/plugin-terser to v1 ([dd24cde](https://github.com/zhensherlock/watermark-js-plus/commit/dd24cde314762571b533011f07f7d51956e78627))
+* **deps:** update dependency jquery to v4 ([66a10b7](https://github.com/zhensherlock/watermark-js-plus/commit/66a10b7c3c435905af82625cdca87493a8b96b23))
+* **deps:** update dependency unplugin-element-plus to ^0.11.0 ([3faf4c1](https://github.com/zhensherlock/watermark-js-plus/commit/3faf4c13396be0b4ffb3004c6546095800ee1214))
+* update dependencies ([2b8abd8](https://github.com/zhensherlock/watermark-js-plus/commit/2b8abd81a0a7d26a875142a959229892bd8c40ef))
+* update dependencies ([f6a8f94](https://github.com/zhensherlock/watermark-js-plus/commit/f6a8f945478f3de6cc858a757d9b4eb0050003e0))
+* update dependencies ([0ed4e38](https://github.com/zhensherlock/watermark-js-plus/commit/0ed4e383f6235157eb29c0c93a37b59de55c2c4d))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* support blind watermark decoding in IE11 ([#1198](https://github.com/zhensherlock/watermark-js-plus/issues/1198)) ([f9ffba8](https://github.com/zhensherlock/watermark-js-plus/commit/f9ffba819aa9039e5f9e2b2444e61b16760ecbb7))
+
+
+### 📝 Documentation | 文档
+
+* add repository agents.md ([91346b7](https://github.com/zhensherlock/watermark-js-plus/commit/91346b73355cea91e0376f794e29be2153602432))
+* update repository agent guidance ([8d2d952](https://github.com/zhensherlock/watermark-js-plus/commit/8d2d952a241fcfb35baba266d85c292070053e7d))
+
 ## [1.6.5](https://github.com/zhensherlock/watermark-js-plus/compare/v1.6.4...v1.6.5) (2026-07-06)
 
 
