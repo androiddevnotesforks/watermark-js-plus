@@ -273,7 +273,7 @@ BlindWatermark.decode({
 <el-row :gutter="20">
   <el-col :span="12">
     <el-tooltip content="Use a light background image" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         Light Background<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>
@@ -298,7 +298,7 @@ BlindWatermark.decode({
   </el-col>
   <el-col :span="12">
     <el-tooltip content="Use with dark background image" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         Dark Background<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>
