@@ -11,15 +11,7 @@ export type CreateWatermarkModeType = 'default' | 'blind'
 export type DecodeBlindWatermarkModeType = 'canvas' | 'html' | 'svg'
 
 export type TranslatePlacementType =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'right'
-  | 'middle'
+  'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'right' | 'middle'
 
 export type TextType = 'fill' | 'stroke'
 

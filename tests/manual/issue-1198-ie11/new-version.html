@@ -1,0 +1,82 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Issue #1198 - 新版 IE11 修复验证</title>
+  <style>
+    body { margin: 0; background: #f3f5f8; color: #20242b; font: 14px/1.6 Arial, "Microsoft YaHei", sans-serif; }
+    .page { width: 1060px; max-width: 94%; margin: 28px auto 60px; }
+    .hero { padding: 24px 28px; border-top: 6px solid #16803c; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin: 0 0 14px; font-size: 19px; }
+    .lead { margin: 0; color: #5a6270; }
+    .panel { margin-top: 18px; padding: 22px; background: #fff; border: 1px solid #d9dee7; }
+    .meta { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .meta th, .meta td { padding: 9px 12px; border: 1px solid #d9dee7; text-align: left; word-break: break-all; }
+    .meta th { width: 180px; background: #f5f7fa; }
+    .columns { margin: 0 -8px; font-size: 0; }
+    .column { display: inline-block; box-sizing: border-box; width: 50%; padding: 0 8px; vertical-align: top; font-size: 14px; }
+    .preview { display: block; box-sizing: border-box; width: 100%; min-height: 260px; border: 1px solid #cbd2dc; background: #fff; }
+    .status { margin-top: 14px; padding: 11px 14px; border-left: 5px solid #7a8494; background: #f4f6f8; }
+    .status-running { border-color: #1570ef; background: #eff8ff; }
+    .status-pass { border-color: #16803c; background: #edfdf3; }
+    .status-warn { border-color: #b54708; background: #fff7ed; }
+    .status-fail { border-color: #c01048; background: #fff1f3; }
+    button { margin-top: 16px; padding: 10px 18px; border: 0; background: #16803c; color: #fff; font-weight: bold; cursor: pointer; }
+    button[disabled] { background: #9aa3b0; cursor: wait; }
+    .note { padding: 12px 15px; background: #edfdf3; border: 1px solid #a6f4c5; }
+    code { padding: 2px 5px; background: #eef1f5; }
+    @media screen and (max-width: 760px) { .page { width: auto; } .column { width: 100%; margin-bottom: 18px; } .meta th { width: 120px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <h1>新版验证：Issue #1198 修复</h1>
+      <p class="lead">使用当前本地修改后的 IE 构建。IE11 不支持 overlay 时，应自动使用像素级软件回退。</p>
+    </div>
+
+    <div class="panel">
+      <h2>测试说明</h2>
+      <p class="note">请用 IE11 双击打开此文件。如果顶部出现“已限制此网页运行脚本或 ActiveX 控件”，请选择“允许阻止的内容”。在 IE11 中，overlay 能力应显示“不支持”，但解码结果仍应保留白色背景并显示暗水印。</p>
+      <table class="meta">
+        <tr><th>构建</th><td id="buildLabel"></td></tr>
+        <tr><th>本地 JS</th><td id="assetLabel"></td></tr>
+        <tr><th>预期</th><td id="expectedLabel"></td></tr>
+        <tr><th>IE documentMode</th><td id="documentMode">检测中</td></tr>
+        <tr><th>overlay 能力</th><td id="overlaySupport">检测中</td></tr>
+        <tr><th>User-Agent</th><td id="userAgent">检测中</td></tr>
+        <tr><th>结果平均亮度</th><td id="brightnessValue">等待测试</td></tr>
+      </table>
+      <button id="runButton" type="button">重新运行测试</button>
+      <div id="resultStatus" class="status status-running">等待页面初始化……</div>
+    </div>
+
+    <div class="panel">
+      <div class="columns">
+        <div class="column">
+          <h2>含暗水印的原图</h2>
+          <canvas id="sourceCanvas" class="preview" width="960" height="540"></canvas>
+        </div>
+        <div class="column">
+          <h2>BlindWatermark.decode 输出</h2>
+          <img id="resultImage" class="preview" alt="解码结果">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/watermark-js-plus-current-ie.iife.min.js"></script>
+  <script>
+    window.IE_BLIND_WATERMARK_TEST = {
+      buildLabel: '当前本地修复版 IE IIFE（基于 1.6.5）',
+      assetFile: 'assets/watermark-js-plus-current-ie.iife.min.js',
+      expectedResult: 'visible',
+      expectedLabel: 'IE11 中输出不是纯黑，并能看到 ISSUE 1198 暗水印'
+    }
+  </script>
+  <script src="assets/test-harness.js"></script>
+</body>
+</html>
