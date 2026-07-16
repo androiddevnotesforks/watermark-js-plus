@@ -37,3 +37,4 @@ new BlindWatermark({
   globalAlpha: 0.1,  // Will be forced to 0.005
   mode: 'default'    // Will be forced to 'blind'
 })
+```

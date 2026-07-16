@@ -13,10 +13,10 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 - **Description**: Path to the image requiring decoding (URL or base64)
 
 ## mode
-- **Type**: `string`
+- **Type**: `'canvas' | 'html' | 'svg'`
 - **Default**: `'canvas'`
-- **Available Values**: `'canvas'`
-- **Description**: Decoding mode, currently only canvas method is supported
+- **Supported Value**: `'canvas'`
+- **Description**: Only canvas decoding is implemented. The typed `'html'` and `'svg'` values currently perform no decoding.
 
 ## fillColor
 - **Type**: `string`
@@ -26,7 +26,7 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 ## compositeOperation
 - **Type**: `string`
 - **Default**: `'color-burn'`
-- **Description**: Image composite operation type used to enhance watermark visibility
+- **Description**: Image composite operation used to enhance watermark visibility. The IE entry provides a software fallback for `'color-burn'` and `'overlay'` when the browser does not support them.
 
 ## compositeTimes
 - **Type**: `number`
@@ -36,7 +36,7 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 ## onSuccess
 - **Type**: `Function`
 - **Default**: `undefined`
-- **Description**: Callback function after successful decoding, parameter contains decoded image data
+- **Description**: Callback after successful decoding; its parameter is the processed PNG Data URL.
 
 ## Decoding Principle
 Blind watermark decoding works through these steps:
@@ -56,3 +56,4 @@ BlindWatermark.decode({
     // Handle decoded image
   }
 })
+```

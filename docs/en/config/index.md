@@ -35,12 +35,12 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 
   - `'grid'` (Grid layout)
     * Arranges watermarks in a matrix grid pattern
-    * Requires `gridLayoutOptions` configuration
+    * `gridLayoutOptions` is optional and defaults to a 1 × 1 grid
     * Typical use case: Generating patterned watermark backgrounds
 
 ### gridLayoutOptions
 - **Type**: `GridLayoutOptions`
-- **Default**: `null`
+- **Default**: `undefined`
 - **Description**: Custom options for grid-based layout configuration.
 - **Properties**:
   - `cols`: Number of columns (default: `1`)
@@ -86,7 +86,6 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 - **Description**: 
   - Horizontal offset (in pixels)
   - Positive value → Right movement | Negative value ← Left movement
-  - Overrides horizontal positioning from `translatePlacement`
   - Serves as X-coordinate for rotation pivot point
   - Affects calculation of linear/radial gradient start points
 
@@ -96,31 +95,26 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 - **Description**:
   - Vertical offset (in pixels)
   - Positive value ↓ Downward movement | Negative value ↑ Upward movement
-  - Overrides vertical positioning from `translatePlacement`
   - Serves as Y-coordinate for rotation pivot point
   - Affects automatic calculation of text baseline (`textBaseline`)
+- **Note**: Custom coordinates require both `translateX` and `translateY`. If a non-`middle` `translatePlacement` is also explicitly provided, that placement takes precedence.
 
 ### movable (animation)
 - **Type**: `boolean`
 - **Default**: `false`
 - **Description**:  
-  When enabled, the watermark will exhibit physics-based animated motion. The behavior differs based on `backgroundRepeat`:
-  - `repeat`: Full 2D floating animation (200s duration)
-  - `repeat-x`: Horizontal oscillation (random 2-8s duration)
-  - `repeat-y`: Vertical oscillation (random 2-4s duration)
-  - `no-repeat`: Combined horizontal+vertical movement. The watermark node will simulate collision-based movement within its parent element, automatically bouncing off boundaries.
+  When enabled, CSS animations change the watermark's background position. The behavior differs based on `backgroundRepeat`:
+  - `repeat`: 2D background-position animation (200s duration)
+  - `repeat-x`: Vertical background-position animation (random 2-8s duration)
+  - `repeat-y`: Horizontal background-position animation (random 2-4s duration)
+  - `no-repeat`: Combined horizontal and vertical background-position animation
 - **Live Examples**:
   - [StackBlitz](https://stackblitz.com/edit/webpack-webpack-js-org-wq26h43z)
   - [Demo](https://zhensherlock.github.io/watermark-js-plus/guide/watermark.html#child-element-watermark)
 - **Mechanism**:
   - Implemented via CSS `animation` with randomized durations
   - Uses `alternate` direction for ping-pong effect
-  - Speed ranges:
-    - Horizontal: 2-8 seconds per cycle
-    - Vertical: 2-4 seconds per cycle
-- **Note**:
-  - Disables when `mutationObserve` is active
-  - For physics-based movement, combine with `advancedStyle` gradients
+  - Durations use the ranges listed above for each `backgroundRepeat` value
 
 ### zIndex
 - **Type**: `number`
@@ -147,7 +141,7 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 ### content
 - **Type**: `string`
 - **Default**: `'hello watermark-js-plus'`
-- **Description**: The actual content to display (text or image URL).
+- **Description**: Text or HTML used by text, multi-line-text, and rich-text modes. Image mode uses the separate `image` option.
 
 ### textType
 - **Type**: `string`
@@ -271,8 +265,8 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 Multiple filters can be combined by space-separating them (e.g., `brightness(120%) contrast(110%)`). The value `'none'` indicates no filter effect.
 
 ### shadowStyle
-- **Type**: `CanvasShadowStyles`
-- **Default**: `null`
+- **Type**: `Partial<CanvasShadowStyles>`
+- **Default**: `undefined`
 - **Properties**:
   - `shadowColor`: `string`  
     Shadow color (supports all CSS color formats)
@@ -294,7 +288,7 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 
 ### advancedStyle
 - **Type**: `AdvancedStyleType`
-- **Default**: `null`
+- **Default**: `undefined`
 - **Properties**:
   - `type`: `'linear' | 'radial' | 'conic' | 'pattern'`  
     Gradient type (linear/radial/conic/pattern)
@@ -312,12 +306,11 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 - **Description**:
   Enables advanced fill styles that override default `fontColor`. Supports:
   - All CSS gradient types (auto-adapted to Canvas coordinates)
-  - Image pattern fills (with cross-origin support)
+  - Image pattern fills
   - Smart coordinate positioning (auto-adjusts gradient points based on `translatePlacement`)
 - **Note**:
   - Works with `textType` (applies to both `fillStyle` and `strokeStyle`)
   - Requires preloaded images for `pattern` type
-  - Coordinate system affected by `rotate` and `translateX/Y` transforms
 
 ### backgroundPosition
 - **Type**: `string`
@@ -336,10 +329,8 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 - **Default**: `'default'`
 - **Available Values**:
   - `'default'`: Standard visible watermark mode (normal transparency)
-  - `'blind'`: Invisible watermark mode (extremely low transparency) for covert protection
-- **Description**: Determines the watermark visibility behavior.
-  - In `default` mode, the watermark is visibly displayed with configured transparency.
-  - In `blind` mode, the watermark becomes nearly invisible (fixed at globalAlpha=0.005) while remaining detectable through decoding.
+  - `'blind'`: Blind watermark mode identifier
+- **Description**: Identifies the intended watermark mode. In a regular `Watermark`, setting this option to `'blind'` does not change opacity by itself. `BlindWatermark` enforces `mode: 'blind'` and `globalAlpha: 0.005`.
 
 ### mutationObserve
 - **Type**: `boolean`
@@ -356,7 +347,7 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 
 ### extraDrawFunc
 - **Type**: `Function`
-- **Default**: `() => {}`
+- **Default**: `undefined`
 - **Description**: Additional drawing operations callback.
 
 ### onSuccess

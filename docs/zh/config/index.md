@@ -34,12 +34,12 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
     * 适用于常规场景
   - `'grid'` (网格布局)
     * 将水印按矩阵网格形式排列
-    * 需配合 `gridLayoutOptions` 配置
+    * `gridLayoutOptions` 可选，省略时使用 1 × 1 网格
     * 典型应用场景：生成规律排列的水印背景
 
 ### gridLayoutOptions
 - **类型**: `GridLayoutOptions`
-- **默认值**: `null`
+- **默认值**: `undefined`
 - **描述**: 网格布局的自定义配置项
 - **配置属性**:
   - `cols`: 列数（默认 `1`）
@@ -85,7 +85,6 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**:
   - 水平偏移量（单位：像素）
   - 正值 → 向右移动 | 负值 ← 向左移动
-  - 会覆盖`translatePlacement`的水平定位
   - 作为旋转中心点的X坐标
   - 影响线性渐变/径向渐变的起始点计算
 
@@ -95,27 +94,26 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**:
   - 垂直偏移量（单位：像素）
   - 正值 ↓ 向下移动 | 负值 ↑ 向上移动
-  - 会覆盖`translatePlacement`的垂直定位
   - 作为旋转中心点的Y坐标
   - 影响文本基线(`textBaseline`)的自动计算
+- **注意**: 自定义坐标必须同时传入 `translateX` 和 `translateY`。如果同时显式传入非 `'middle'` 的 `translatePlacement`，则预设定位优先。
 
 ### movable（动画）
 - **类型**: `boolean`
 - **默认值**: `false`
 - **功能描述**:
-  启用后，水印将产生符合物理规律的动画运动效果，在容器边界内呈现自然的往复运动轨迹。  
-  具体模式取决于`backgroundRepeat`配置：  
-  • `repeat`: 二维平面浮动（200秒周期）  
-  • `repeat-x`: 水平往返运动（2-8秒随机周期）  
-  • `repeat-y`: 垂直往返运动（2-4秒随机周期）  
-  • `no-repeat`: 双轴复合运动。水印节点会在父元素内模拟碰撞反弹运动。
+  启用后，通过 CSS 动画改变水印的背景位置。
+  具体模式取决于`backgroundRepeat`配置：
+  - `repeat`: 二维背景位置动画（200秒周期）
+  - `repeat-x`: 垂直背景位置动画（2-8秒随机周期）
+  - `repeat-y`: 水平背景位置动画（2-4秒随机周期）
+  - `no-repeat`: 水平和垂直背景位置的组合动画。
 - **示例**:
   - [StackBlitz](https://stackblitz.com/edit/webpack-webpack-js-org-wq26h43z)
   - [Demo](https://zhensherlock.github.io/watermark-js-plus/zh/guide/watermark.html#子元素水印)
 - **运动特性**:
-  - 智能速度调节（水平2-8秒/周期，垂直2-4秒/周期）
-  - 边界感知的自动转向
-  - 动量保持的平滑过渡（`alternate`动画模式）
+  - 根据上述 `backgroundRepeat` 值在对应范围内随机生成周期
+  - 使用 `alternate` 动画模式往返播放
 - **技术说明**:
   - 通过CSS `animation` 高性能实现
   - 运动幅度随容器尺寸自适应
@@ -145,7 +143,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ### content
 - **类型**: `string`
 - **默认值**: `'hello watermark-js-plus'`
-- **描述**: 要显示的实际内容(文本或图片URL)
+- **描述**: 文本、多行文本和富文本模式使用的文本或 HTML；图片模式使用单独的 `image` 配置
 
 ### textType
 - **类型**: `string`
@@ -269,8 +267,8 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 多个滤镜可通过空格组合使用 (如 `brightness(120%) contrast(110%)`)。 默认值  `'none'` 表示不应用任何滤镜效果。
 
 ### shadowStyle
-- **类型**: `CanvasShadowStyles`
-- **默认值**: `null`
+- **类型**: `Partial<CanvasShadowStyles>`
+- **默认值**: `undefined`
 - **配置属性**:
   - `shadowColor`: `string`  
     阴影颜色（支持所有CSS颜色格式）
@@ -292,7 +290,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 
 ### advancedStyle
 - **类型**: `AdvancedStyleType`
-- **默认值**: `null`
+- **默认值**: `undefined`
 - **配置属性**:
   - `type`: `'linear' | 'radial' | 'conic' | 'pattern'`  
     渐变类型（线性/径向/锥形/图案）
@@ -310,12 +308,11 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **功能说明**:
   实现高级填充样式，覆盖默认的`fontColor`设置。支持：
   - 全类型CSS渐变（自动适配Canvas坐标系）
-  - 图片纹理填充（支持跨域资源）
+  - 图片纹理填充
   - 智能坐标定位（根据`translatePlacement`自动调整渐变起止点）
 - **注意事项**:
   - 与`textType`联动（同时作用于`fillStyle`和`strokeStyle`）
   - 当使用`pattern`类型时，需要预加载图片资源
-  - 渐变坐标系统会受`rotate`和`translateX/Y`影响
 
 ### backgroundPosition
 - **类型**: `string`
@@ -334,10 +331,8 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **默认值**: `'default'`
 - **可选值**:
   - `'default'`: 标准可见水印模式（正常透明度）
-  - `'blind'`: 隐形水印模式（极低透明度）用于隐蔽保护
-- **描述**: 决定水印的显示行为。
-  - 在`default`模式下，水印会以配置的透明度正常显示。
-  - 在`blind`模式下，水印会变得几乎不可见（固定globalAlpha=0.005），但仍可通过解码技术检测到。
+  - `'blind'`: 暗水印模式标识
+- **描述**: 标识预期的水印模式。在普通 `Watermark` 中，仅设置为 `'blind'` 不会自动改变透明度；`BlindWatermark` 会固定 `mode: 'blind'` 和 `globalAlpha: 0.005`。
 
 ### mutationObserve
 - **类型**: `boolean`
@@ -354,7 +349,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 
 ### extraDrawFunc
 - **类型**: `Function`
-- **默认值**: `() => {}`
+- **默认值**: `undefined`
 - **描述**: 额外绘图操作的回调函数
 
 ### onSuccess

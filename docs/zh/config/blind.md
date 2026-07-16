@@ -37,3 +37,4 @@ new BlindWatermark({
   globalAlpha: 0.1,  // 会被强制设为0.005
   mode: 'default'    // 会被强制设为'blind'
 })
+```

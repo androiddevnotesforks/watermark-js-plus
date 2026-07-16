@@ -9,8 +9,8 @@ layout: doc
 ## create()
 - **描述**: 在指定父元素上创建并渲染水印
 - **行为**:
-  - 验证DOM中水印的唯一性（如果发现重复则抛出错误）
-  - 根据contentType（文本/图片/富文本）检查内容有效性
+  - 如果父元素中已有重复水印，则直接返回且不创建
+  - 根据contentType（文本/图片/多行文本/富文本）检查内容有效性
   - 使用配置的样式（旋转、透明度等）生成水印画布
   - 将画布转换为带有正确定位的背景图片
   - 应用防御性CSS（!important标记，pointer-events: none）
@@ -52,7 +52,8 @@ layout: doc
   - mode: 'overwrite'|'append' - 如何合并新选项
   - redraw: boolean - 是否立即重新创建 (默认: true)
 - **行为**:
-  - 根据指定模式合并新选项
+  - `overwrite` 会替换之前的显式配置，未传入的配置恢复默认值
+  - `append` 会合并到之前的显式配置
   - 如果 monitorProtection=true，则启用保护
   - 如果 redraw=true，则重新创建水印
 - **返回**: `Promise<void>`
@@ -64,7 +65,7 @@ layout: doc
 ## 技术细节
 - **DOM Structure**:
 ```html
-<div class="watermark" style="/* 防御性CSS */">
+<div style="/* 防御性CSS */">
   <div style="/* 背景图片样式 */"></div>
 </div>
   ```

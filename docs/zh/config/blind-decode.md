@@ -13,10 +13,10 @@ description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进
 - **描述**: 需要解码的图片路径(URL或base64)
 
 ## mode
-- **类型**: `string`
+- **类型**: `'canvas' | 'html' | 'svg'`
 - **默认值**: `'canvas'`
-- **可选值**: `'canvas'`
-- **描述**: 解码模式，目前仅支持canvas方式
+- **支持值**: `'canvas'`
+- **描述**: 目前只实现了 canvas 解码；类型中包含的 `'html'` 和 `'svg'` 当前不会执行解码。
 
 ## fillColor
 - **类型**: `string`
@@ -26,7 +26,7 @@ description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进
 ## compositeOperation
 - **类型**: `string`
 - **默认值**: `'color-burn'`
-- **描述**: 图像合成操作类型，用于增强水印可见性
+- **描述**: 用于增强水印可见性的图像合成操作。浏览器不支持时，IE 入口会为 `'color-burn'` 和 `'overlay'` 提供软件回退。
 
 ## compositeTimes
 - **类型**: `number`
@@ -36,7 +36,7 @@ description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进
 ## onSuccess
 - **类型**: `Function`
 - **默认值**: `undefined`
-- **描述**: 解码成功后的回调函数，参数为解码后的图像数据
+- **描述**: 解码成功后的回调函数，参数为处理后的 PNG Data URL。
 
 ## 解码原理
 暗水印解码通过以下步骤实现:
@@ -56,3 +56,4 @@ BlindWatermark.decode({
     // 处理解码后的图像
   }
 })
+```
