@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Configure BlindWatermark.decode to enhance and reveal a blind watermark contained in a screenshot or image.
 ---
 
 <el-backtop></el-backtop>

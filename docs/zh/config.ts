@@ -2,12 +2,20 @@ import { defineAdditionalConfig, type DefaultTheme } from 'vitepress'
 import { version } from '../../package.json'
 
 export default defineAdditionalConfig({
+  description: '一个轻量、框架无关的 TypeScript 浏览器水印库，支持可见水印、图片水印和暗水印。',
   themeConfig: {
     // outlineTitle: '本页目录',
     // lastUpdatedText: '上次更新',
     nav: [
       { text: '指南', link: '/zh/guide/what-is-this', activeMatch: '/guide/' },
       { text: '配置项', link: '/zh/config/', activeMatch: '/config/' },
+      {
+        text: '社区',
+        items: [
+          { text: 'GitHub Discussions', link: 'https://github.com/zhensherlock/watermark-js-plus/discussions' },
+          { text: '参与贡献', link: 'https://github.com/zhensherlock/watermark-js-plus/blob/main/CONTRIBUTING.md' },
+        ],
+      },
       {
         text: version,
         items: [

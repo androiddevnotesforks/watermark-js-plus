@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进行增强和显现。
 ---
 
 <el-backtop></el-backtop>

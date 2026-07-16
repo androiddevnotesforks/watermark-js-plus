@@ -8,6 +8,11 @@
   animation: blur-in 1s cubic-bezier(0, .55, .45, 1);
 }
 
+.VPFeatures .VPFeature .VPImage {
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(15, 82, 186, .16);
+}
+
 @keyframes blur-in {
   0% {
     filter: brightness(1) blur(10px);

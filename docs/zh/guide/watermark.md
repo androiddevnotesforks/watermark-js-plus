@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 使用 Watermark API 为浏览器页面添加可配置的文本、图片、富文本、动态和容器水印。
 ---
 # 明水印
 

@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 使用 npm、yarn 或固定版本的 CDN 脚本安装 watermark-js-plus，并创建第一个浏览器水印。
 ---
 
 <el-backtop></el-backtop>
@@ -49,13 +50,13 @@ watermark.create()
 使用 jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/watermark-js-plus/dist/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/watermark-js-plus@1.6.6/dist/index.iife.min.js"></script>
 ```
 
 使用 unpkg CDN:
 
 ```html
-<script src="https://unpkg.com/watermark-js-plus/dist/index.iife.min.js"></script>
+<script src="https://unpkg.com/watermark-js-plus@1.6.6/dist/index.iife.min.js"></script>
 ```
 
 使用示例:

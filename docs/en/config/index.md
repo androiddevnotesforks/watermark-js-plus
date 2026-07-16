@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Reference all watermark-js-plus options for content, layout, typography, opacity, animation, protection, and lifecycle callbacks.
 ---
 
 <el-backtop></el-backtop>

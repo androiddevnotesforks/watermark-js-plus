@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Render text or image watermarks directly into existing browser images with the ImageWatermark API.
 ---
 # Image Watermark
 

@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Install watermark-js-plus and add your first browser watermark with npm, yarn, or a version-pinned CDN script.
 ---
 
 <el-backtop></el-backtop>
@@ -49,13 +50,13 @@ watermark.create()
 Using jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/watermark-js-plus/dist/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/watermark-js-plus@1.6.6/dist/index.iife.min.js"></script>
 ```
 
 Using unpkg CDN:
 
 ```html
-<script src="https://unpkg.com/watermark-js-plus/dist/index.iife.min.js"></script>
+<script src="https://unpkg.com/watermark-js-plus@1.6.6/dist/index.iife.min.js"></script>
 ```
 
 Usage example:

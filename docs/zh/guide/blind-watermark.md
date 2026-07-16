@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 使用 BlindWatermark API 创建低透明度暗水印，并从截图或图片中将其显现。
 ---
 # 暗水印
 

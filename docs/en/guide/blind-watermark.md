@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Create low-opacity blind watermarks and reveal them from screenshots or images with the BlindWatermark API.
 ---
 # Blind Watermark
 

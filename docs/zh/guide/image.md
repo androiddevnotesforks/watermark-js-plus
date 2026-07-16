@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 使用 ImageWatermark API 将文本或图片水印直接绘制到浏览器中的现有图片。
 ---
 # 图片水印
 
@@ -154,4 +155,3 @@ watermark.destroy() // remove watermark
   </el-space>
 </el-affix>
 </div>
-

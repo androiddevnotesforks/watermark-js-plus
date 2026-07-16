@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、动画、防篡改和生命周期回调配置项。
 ---
 
 <el-backtop></el-backtop>
