@@ -194,7 +194,7 @@ See the [legacy-browser guide](https://zhensherlock.github.io/watermark-js-plus/
 
 ## Contributing
 
-Contributions are welcome. You can [open an issue](https://github.com/zhensherlock/watermark-js-plus/issues/new/choose), start a [discussion](https://github.com/zhensherlock/watermark-js-plus/discussions), or submit a pull request.
+Contributions are welcome. Read the [contribution guide](https://github.com/zhensherlock/watermark-js-plus/blob/main/CONTRIBUTING.md), [open an issue](https://github.com/zhensherlock/watermark-js-plus/issues/new/choose), or start a [discussion](https://github.com/zhensherlock/watermark-js-plus/discussions).
 
 Please follow the project [Code of Conduct](https://github.com/zhensherlock/watermark-js-plus/blob/main/CODE_OF_CONDUCT.md) when participating.
 

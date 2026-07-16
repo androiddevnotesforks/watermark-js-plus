@@ -194,7 +194,7 @@ import { Watermark } from 'watermark-js-plus/ie'
 
 ## 参与贡献
 
-欢迎参与项目。你可以[提交 Issue](https://github.com/zhensherlock/watermark-js-plus/issues/new/choose)、发起[讨论](https://github.com/zhensherlock/watermark-js-plus/discussions)，或者提交 Pull Request。
+欢迎参与项目。请先阅读[贡献指南](https://github.com/zhensherlock/watermark-js-plus/blob/main/CONTRIBUTING.md)，也可以[提交 Issue](https://github.com/zhensherlock/watermark-js-plus/issues/new/choose)或在 [GitHub Discussions](https://github.com/zhensherlock/watermark-js-plus/discussions) 中交流。
 
 参与社区时，请遵守项目的[行为准则](https://github.com/zhensherlock/watermark-js-plus/blob/main/CODE_OF_CONDUCT.md)。
 
