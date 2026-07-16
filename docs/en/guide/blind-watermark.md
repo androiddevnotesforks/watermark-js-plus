@@ -52,7 +52,7 @@ const handleAddMultiLineTextBlindWatermark = () => {
     contentType: 'multi-line-text',
     content: 'hello my multiline blind watermark',
     fontColor: isDark.value ? '#fff' : '#000',
-    fontSize: 30,
+    fontSize: '30px',
     width: 200,
     height: 200,
     onSuccess: () => {
@@ -176,7 +176,7 @@ import { BlindWatermark } from 'watermark-js-plus' // import watermark plugin
 const watermark = new BlindWatermark({
   contentType: 'multi-line-text',
   content: 'hello my multiline blind watermark',
-  fontSize: 30,
+  fontSize: '30px',
   width: 200,
   height: 200,
   onSuccess: () => {
@@ -206,7 +206,7 @@ import { BlindWatermark } from 'watermark-js-plus' // import watermark plugin
 
 const watermark = new BlindWatermark({
   contentType: 'image',
-  content: 'http://upic-service.test.upcdn.net/uPic/github-JxMIKf.png',
+  image: 'https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/github-mkWBiK.png',
   width: 300,
   height: 300,
   imageWidth: 100, // image width

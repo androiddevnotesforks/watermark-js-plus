@@ -80,13 +80,14 @@ const handleRemoveImageWatermark = () => {
 <div class="text-card">
 
 ```html
-<img class="text-watermark-image">
+<img class="text-watermark-image" src="https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/402413381-a24bd4a5-c4e0-45d6-b8ce-94e99e29a111-dowV4C.png" crossorigin="anonymous">
 ```
 
 ```js
 import { ImageWatermark } from 'watermark-js-plus' // import watermark plugin
 
 const imgDom = document.querySelector('.text-watermark-image');
+await imgDom.decode()
 
 const watermark = new ImageWatermark({
   content: 'my text watermark',
@@ -97,12 +98,13 @@ const watermark = new ImageWatermark({
   translatePlacement: 'bottom-end',
   fontColor: '#fff',
   globalAlpha: 0.5,
-  fontSize: '30px'
+  fontSize: '30px',
+  crossOrigin: true
 })
 
-watermark.create() // add watermark
+await watermark.create() // 添加水印
 
-watermark.destroy() // remove watermark
+watermark.destroy() // 删除水印
 ```
 
 <div>
@@ -121,13 +123,14 @@ watermark.destroy() // remove watermark
 <div class="image-card">
 
 ```html
-<img class="image-watermark-image">
+<img class="image-watermark-image" src="https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/402413381-a24bd4a5-c4e0-45d6-b8ce-94e99e29a111-dowV4C.png" crossorigin="anonymous">
 ```
 
 ```js
 import { ImageWatermark } from 'watermark-js-plus' // import watermark plugin
 
 const imgDom = document.querySelector('.image-watermark-image');
+await imgDom.decode()
 
 const watermark = new ImageWatermark({
   contentType: 'image',
@@ -137,12 +140,13 @@ const watermark = new ImageWatermark({
   height: imgDom.height,
   dom: imgDom,
   rotate: 0,
-  translatePlacement: 'bottom-end'
+  translatePlacement: 'bottom-end',
+  crossOrigin: true
 })
 
-watermark.create() // add watermark
+await watermark.create() // 添加水印
 
-watermark.destroy() // remove watermark
+watermark.destroy() // 删除水印
 ```
 
 <div>
