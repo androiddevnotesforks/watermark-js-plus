@@ -25,7 +25,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**: 水印旋转角度(度数)
 
 ### layout
-- **类型**: `string`
+- **类型**: `LayoutType`（`'default' | 'grid'`）
 - **默认值**: `'default'`
 - **描述**: 控制水印元素的排列方式
 - **可选值及说明**:
@@ -38,7 +38,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
     * 典型应用场景：生成规律排列的水印背景
 
 ### gridLayoutOptions
-- **类型**: `GridLayoutOptions`
+- **类型**: `GridLayoutOptions | undefined`
 - **默认值**: `undefined`
 - **描述**: 网格布局的自定义配置项
 - **配置属性**:
@@ -46,9 +46,10 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
   - `rows`: 行数（默认 `1`）
   - `gap`: 间距配置，格式为 `[水平间距, 垂直间距]`（默认 `[0, 0]`）
   - `matrix`: 二维矩阵，控制每个网格位是否显示水印（默认全 `1` 矩阵）
-  - `backgroundImage`: 可选背景图（覆盖整个网格区域）
+  - `backgroundImage`: 在网格区域绘制的可选背景图；使用时需同时提供 `width` 和 `height`
   - `width`: 可选总宽度（覆盖自动计算的列/间距宽度）
   - `height`: 可选总高度（覆盖自动计算的行/间距高度）
+- **注意**: 对 `Watermark` 和 `BlindWatermark` 而言，自定义网格 `width`、`height` 会改变生成的网格 Canvas，但 CSS 背景尺寸仍根据水印单元宽高、行列数和间距计算。
 
 ### auxiliaryLine
 - **类型**: `boolean`
@@ -80,7 +81,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
   - 对于文本水印，该参数还会影响文本基线的计算
 
 ### translateX
-- **类型**: `number`
+- **类型**: `number | undefined`
 - **默认值**: 自动计算（根据`translatePlacement`和`width`）
 - **描述**:
   - 水平偏移量（单位：像素）
@@ -89,7 +90,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
   - 影响线性渐变/径向渐变的起始点计算
 
 ### translateY
-- **类型**: `number`
+- **类型**: `number | undefined`
 - **默认值**: 自动计算（根据`translatePlacement`和`height`）
 - **描述**:
   - 垂直偏移量（单位：像素）
@@ -131,7 +132,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ## 内容配置
 
 ### contentType
-- **类型**: `string`
+- **类型**: `ContentTypeType`（`'text' | 'image' | 'multi-line-text' | 'rich-text'`）
 - **默认值**: `'text'`
 - **可选值**:
   - `'text'`: 简单文本水印
@@ -146,7 +147,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**: 文本、多行文本和富文本模式使用的文本或 HTML；图片模式使用单独的 `image` 配置
 
 ### textType
-- **类型**: `string`
+- **类型**: `TextType`（`'fill' | 'stroke'`）
 - **默认值**: `'fill'`
 - **可选值**: `'fill'` | `'stroke'`
 - **描述**: 文本内容的渲染方式
@@ -184,12 +185,14 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**: 文本颜色
 
 ### textAlign
-- **类型**: `string`
+- **类型**: `TextAlignType | undefined`
+- **默认值**: 根据 `translatePlacement` 自动计算（默认居中定位时为 `'center'`，同时使用自定义坐标时为 `'left'`）
 - **可选值**: `'center'`, `'end'`, `'left'`, `'right'`, `'start'`
 - **描述**: 文本水平对齐方式
 
 ### textBaseline
-- **类型**: `string`
+- **类型**: `TextBaselineType | undefined`
+- **默认值**: 根据 `translatePlacement` 自动计算（默认居中定位时为 `'middle'`，同时使用自定义坐标时为 `'top'`）
 - **可选值**:
   - `'top'`, `'bottom'`, `'middle'`
   - `'alphabetic'`, `'hanging'`, `'ideographic'`
@@ -202,8 +205,9 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **描述**: 多行文本的行高
 
 ### textRowMaxWidth
-- **类型**: `number`
-- **描述**: 文本行自动换前的最大宽度
+- **类型**: `number | undefined`
+- **默认值**: 配置的 `width`
+- **描述**: Canvas 文本的 `maxWidth`，同时也是多行文本的自动换行阈值
 
 ### letterSpacing
 - **类型**: `string`
@@ -218,27 +222,30 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ## 图片配置
 
 ### image
-- **类型**: `string`
-- **描述**: 用作水印的图片URL(当contentType = 'image'时)
+- **类型**: `string | undefined`
+- **默认值**: `undefined`
+- **描述**: `contentType = 'image'` 时使用的图片 URL。图片以 `crossOrigin="anonymous"` 加载，因此远程服务器必须允许 CORS
 
 ### imageWidth
 - **类型**: `number`
 - **默认值**: `0`
-- **描述**: 图片显示宽度(0表示自然宽度)
+- **描述**: 图片显示宽度。宽高均为 `0` 时使用自然尺寸；仅设置 `imageHeight` 时，宽度按原始比例计算
 
 ### imageHeight
 - **类型**: `number`
 - **默认值**: `0`
-- **描述**: 图片显示高度(0表示自然高度)
+- **描述**: 图片显示高度。宽高均为 `0` 时使用自然尺寸；仅设置 `imageWidth` 时，高度按原始比例计算
 
 ## 富文本配置
 
 ### richTextWidth
-- **类型**: `number`
+- **类型**: `number | undefined`
+- **默认值**: 测量到的富文本内容宽度，无法测量时回退到 `width`
 - **描述**: 富文本内容的宽度限制
 
 ### richTextHeight
-- **类型**: `number`
+- **类型**: `number | undefined`
+- **默认值**: 测量到的富文本内容高度，无法测量时回退到 `height`
 - **描述**: 富文本内容的高度限制
 
 ## 视觉效果
@@ -267,7 +274,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 多个滤镜可通过空格组合使用 (如 `brightness(120%) contrast(110%)`)。 默认值  `'none'` 表示不应用任何滤镜效果。
 
 ### shadowStyle
-- **类型**: `Partial<CanvasShadowStyles>`
+- **类型**: `Partial<CanvasShadowStyles> | undefined`
 - **默认值**: `undefined`
 - **配置属性**:
   - `shadowColor`: `string`  
@@ -289,7 +296,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
   - 在低透明度(`globalAlpha < 0.3`)时效果可能不明显
 
 ### advancedStyle
-- **类型**: `AdvancedStyleType`
+- **类型**: `AdvancedStyleType | undefined`
 - **默认值**: `undefined`
 - **配置属性**:
   - `type`: `'linear' | 'radial' | 'conic' | 'pattern'`  
@@ -327,7 +334,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ## 行为与安全
 
 ### mode
-- **类型**: `string`
+- **类型**: `CreateWatermarkModeType`（`'default' | 'blind'`）
 - **默认值**: `'default'`
 - **可选值**:
   - `'default'`: 标准可见水印模式（正常透明度）
@@ -337,7 +344,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ### mutationObserve
 - **类型**: `boolean`
 - **默认值**: `true`
-- **描述**: 是否监控DOM的未授权更改
+- **描述**: 是否监听水印内相关的属性、子节点和文本变化，以及水印被父元素直接移除的情况，并在检测到变化时重新创建
 
 ### monitorProtection
 - **类型**: `boolean`
@@ -348,14 +355,14 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 ## 回调函数
 
 ### extraDrawFunc
-- **类型**: `Function`
+- **类型**: `Function | undefined`
 - **默认值**: `undefined`
 - **描述**: 额外绘图操作的回调函数
 
 ### onSuccess
 - **类型**: `Function`
 - **默认值**: `() => {}`
-- **描述**: 水印成功应用时调用
+- **描述**: 首次成功创建后调用；普通重绘不会再次调用，执行 `destroy()` 后重新创建会再次调用
 
 ### onBeforeDestroy
 - **类型**: `Function`
@@ -371,3 +378,15 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **类型**: `Function`
 - **默认值**: `() => {}`
 - **描述**: 当DOM变化观察失败时调用
+
+## ImageWatermark 专属配置
+
+### dom
+- **类型**: `HTMLImageElement`
+- **必填**: 调用 `ImageWatermark.create()` 时必填
+- **描述**: 目标图片元素。创建时其 `src` 会替换为生成的带水印 PNG Data URL，`destroy()` 会恢复原始 `src`
+
+### crossOrigin
+- **类型**: `boolean | undefined`
+- **默认值**: `undefined`
+- **描述**: 值为真时，将目标图片元素的 `crossOrigin` 属性设为 `'anonymous'`。对于跨域图片，服务器必须返回兼容的 CORS 响应头才能导出 Canvas

@@ -115,12 +115,6 @@
       <el-descriptions-item label="Global Alpha">
         <el-input-number v-model="form.data.globalAlpha" :disabled="!form.style.enabled" :max="1" :precision="2" :step="0.1" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Mode">
-        <el-select v-model="form.data.mode" :disabled="!form.style.enabled" placeholder="please select mode" @change="handleChange">
-          <el-option label="default" value="default" />
-          <el-option label="blind" value="blind" />
-        </el-select>
-      </el-descriptions-item>
       <el-descriptions-item label="Text Type">
         <el-select v-model="form.data.textType" :disabled="!form.style.enabled" placeholder="please select text type" @change="handleChange">
           <el-option label="fill" value="fill" />

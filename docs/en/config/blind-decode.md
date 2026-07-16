@@ -10,7 +10,7 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 ## url
 - **Type**: `string`
 - **Default**: `''`
-- **Description**: Path to the image requiring decoding (URL or base64)
+- **Description**: Source image URL or Data URL. The decoder does not set `crossOrigin`, so use a same-origin source or Data URL to avoid a tainted Canvas and export failure.
 
 ## mode
 - **Type**: `'canvas' | 'html' | 'svg'`
@@ -31,10 +31,10 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 ## compositeTimes
 - **Type**: `number`
 - **Default**: `3`
-- **Description**: Number of composite operation repetitions - more repetitions make watermark more visible
+- **Description**: Number of composite passes. The visual result depends on `compositeOperation` and `fillColor`; values less than or equal to `0` skip compositing.
 
 ## onSuccess
-- **Type**: `Function`
+- **Type**: `Function | undefined`
 - **Default**: `undefined`
 - **Description**: Callback after successful decoding; its parameter is the processed PNG Data URL.
 

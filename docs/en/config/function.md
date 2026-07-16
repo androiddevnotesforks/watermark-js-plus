@@ -48,8 +48,8 @@ layout: doc
 ## changeOptions()
 - **Description**: Updates watermark configuration
 - **Parameters**:
-  - args: `Partial<WatermarkOptions>` - New configuration options
-  - mode: 'overwrite'|'append' - How to merge new options
+  - args: `Partial<WatermarkOptions>` - New configuration options (default: `{}`)
+  - mode: 'overwrite'|'append' - How to merge new options (default: `'overwrite'`)
   - redraw: boolean - Whether to recreate immediately (default: true)
 - **Behavior**:
   - `overwrite` replaces previous explicit options, so omitted values return to defaults

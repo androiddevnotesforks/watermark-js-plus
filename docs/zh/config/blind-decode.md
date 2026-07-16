@@ -10,7 +10,7 @@ description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进
 ## url
 - **类型**: `string`
 - **默认值**: `''`
-- **描述**: 需要解码的图片路径(URL或base64)
+- **描述**: 待解码图片的 URL 或 Data URL。解码器不会设置 `crossOrigin`，应使用同源地址或 Data URL，避免 Canvas 被污染而无法导出
 
 ## mode
 - **类型**: `'canvas' | 'html' | 'svg'`
@@ -31,10 +31,10 @@ description: 配置 BlindWatermark.decode，对截图或图片中的暗水印进
 ## compositeTimes
 - **类型**: `number`
 - **默认值**: `3`
-- **描述**: 合成操作的重复次数，次数越多水印越明显
+- **描述**: 图像合成次数，实际效果取决于 `compositeOperation` 和 `fillColor`；小于或等于 `0` 时跳过合成
 
 ## onSuccess
-- **类型**: `Function`
+- **类型**: `Function | undefined`
 - **默认值**: `undefined`
 - **描述**: 解码成功后的回调函数，参数为处理后的 PNG Data URL。
 

@@ -48,8 +48,8 @@ layout: doc
 ## changeOptions()
 - **描述**: 更新水印配置
 - **参数**:
-  - args: `Partial<WatermarkOptions>` - 新的配置选项
-  - mode: 'overwrite'|'append' - 如何合并新选项
+  - args: `Partial<WatermarkOptions>` - 新的配置选项（默认: `{}`）
+  - mode: 'overwrite'|'append' - 如何合并新选项（默认: `'overwrite'`）
   - redraw: boolean - 是否立即重新创建 (默认: true)
 - **行为**:
   - `overwrite` 会替换之前的显式配置，未传入的配置恢复默认值
