@@ -10,7 +10,7 @@ hero:
   text: 适用于任意框架的浏览器水印库
   tagline: 使用轻量的 TypeScript API 添加可见水印、图片水印和暗水印。
   image:
-    src: /hero-image.png
+    src: /hero-product.webp
     alt: watermark-js-plus
   actions:
     - theme: brand
@@ -22,21 +22,21 @@ hero:
 
 features:
   - icon:
-      src: /features/three-watermark-apis.webp
+      src: /features/three-watermark-apis.svg
       alt: ''
       width: '72'
       height: '72'
     title: 三类水印 API
     details: 为页面和容器添加水印、将水印绘制到图片中，或创建并显现暗水印。
   - icon:
-      src: /features/framework-agnostic.webp
+      src: /features/framework-agnostic.svg
       alt: ''
       width: '72'
       height: '72'
     title: 框架无关
     details: 同一套浏览器 API 可用于原生 JavaScript、React、Vue、Angular、Svelte 等前端技术栈。
   - icon:
-      src: /features/typescript-first.webp
+      src: /features/typescript-first.svg
       alt: ''
       width: '72'
       height: '72'

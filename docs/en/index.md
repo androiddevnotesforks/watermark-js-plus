@@ -10,7 +10,7 @@ hero:
   text: Browser watermarks for any framework
   tagline: Add visible, image, and blind watermarks with a lightweight TypeScript library.
   image:
-    src: /hero-image.png
+    src: /hero-product.webp
     alt: watermark-js-plus
   actions:
     - theme: brand
@@ -22,21 +22,21 @@ hero:
 
 features:
   - icon:
-      src: /features/three-watermark-apis.webp
+      src: /features/three-watermark-apis.svg
       alt: ''
       width: '72'
       height: '72'
     title: Three watermark APIs
     details: Add watermarks to pages and containers, render them into images, or create and reveal blind watermarks.
   - icon:
-      src: /features/framework-agnostic.webp
+      src: /features/framework-agnostic.svg
       alt: ''
       width: '72'
       height: '72'
     title: Framework agnostic
     details: Use the same browser API with vanilla JavaScript, React, Vue, Angular, Svelte, and other frameworks.
   - icon:
-      src: /features/typescript-first.webp
+      src: /features/typescript-first.svg
       alt: ''
       width: '72'
       height: '72'

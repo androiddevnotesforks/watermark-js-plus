@@ -9,8 +9,20 @@
 }
 
 .VPFeatures .VPFeature .VPImage {
-  border-radius: 16px;
-  box-shadow: 0 12px 28px rgba(15, 82, 186, .16);
+  border: 1px solid rgba(36, 79, 173, .1);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .95), transparent 42%),
+    linear-gradient(145deg, #f4f7ff, #e9efff);
+  box-shadow: 0 8px 22px rgba(36, 75, 155, .12);
+}
+
+.dark .VPFeatures .VPFeature .VPImage {
+  border-color: rgba(143, 170, 239, .18);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(111, 146, 242, .14), transparent 42%),
+    linear-gradient(145deg, #202d4e, #17213b);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .24);
 }
 
 @keyframes blur-in {
