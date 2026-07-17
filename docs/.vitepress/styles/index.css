@@ -25,6 +25,67 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, .24);
 }
 
+.VPContent.is-home {
+  --home-space-lg: 24px;
+}
+
+.VPContent.is-home .VPHero .image {
+  margin-bottom: var(--home-space-lg);
+}
+
+@media (min-width: 960px) {
+  .VPContent.is-home {
+    --home-hero-art-size: clamp(360px, calc(100vh - 420px), 520px);
+  }
+
+  .VPContent.is-home .VPHero {
+    padding: calc(var(--vp-nav-height) + 16px) 64px 8px;
+  }
+
+  .VPContent.is-home .VPHero .container {
+    align-items: center;
+  }
+
+  .VPContent.is-home .VPHero .image {
+    margin-bottom: 0;
+  }
+
+  .VPContent.is-home .VPHero .image-container {
+    transform: translate(-24px, 0);
+  }
+
+  .VPContent.is-home .hero-lottie {
+    width: min(100%, var(--home-hero-art-size));
+  }
+
+  .VPContent.is-home .VPHome {
+    margin-bottom: 0;
+  }
+
+  .VPContent.is-home .VPHomeFeatures .VPFeature .box {
+    padding: 16px;
+  }
+
+  .VPContent.is-home .VPHomeFeatures .VPFeature .box > .VPImage {
+    margin-bottom: 12px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .VPContent.is-home .VPHomeFeatures .VPFeature .title {
+    line-height: 22px;
+  }
+
+  .VPContent.is-home .VPHomeFeatures .VPFeature .details {
+    padding-top: 4px;
+    line-height: 20px;
+  }
+
+  .VPContent.is-home + .VPFooter {
+    padding: 16px 24px;
+  }
+}
+
 @keyframes blur-in {
   0% {
     filter: brightness(1) blur(10px);
