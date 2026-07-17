@@ -9,9 +9,6 @@ hero:
   name: watermark-js-plus
   text: Browser watermarks for any framework
   tagline: Add visible, image, and blind watermarks with a lightweight TypeScript library.
-  image:
-    src: /hero-product.webp
-    alt: watermark-js-plus
   actions:
     - theme: brand
       text: Get Started 👆

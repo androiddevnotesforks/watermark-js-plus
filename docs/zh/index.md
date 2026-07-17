@@ -9,9 +9,6 @@ hero:
   name: watermark-js-plus
   text: 适用于任意框架的浏览器水印库
   tagline: 使用轻量的 TypeScript API 添加可见水印、图片水印和暗水印。
-  image:
-    src: /hero-product.webp
-    alt: watermark-js-plus
   actions:
     - theme: brand
       text: 开始 👆
