@@ -1,11 +1,13 @@
 ---
 layout: doc
+description: 使用 BlindWatermark API 创建低透明度暗水印，并从截图或图片中将其显现。
 ---
 # 暗水印
 
 <script setup lang="ts">
 import VPButton from 'vitepress/dist/client/theme-default/components/VPButton.vue';
 import { ref, getCurrentInstance, onMounted } from 'vue';
+import dayjs from 'dayjs';
 import { Plus, Warning } from '@element-plus/icons-vue';
 import { BlindWatermark } from '../../../src';
 import { useData } from 'vitepress';
@@ -35,6 +37,12 @@ const handleAddTextBlindWatermark = () => {
     }
   }, 'blind')
 };
+const handleUpdateTextBlindWatermark = () => {
+  appStore.changeWatermark({
+    content: 'update my text blind watermark at ' + dayjs().format('HH:mm:ss'),
+    fontColor: isDark.value ? '#fff' : '#000'
+  });
+};
 const handleRemoveTextBlindWatermark = () => {
   appStore.removeWatermark();
 };
@@ -44,7 +52,7 @@ const handleAddMultiLineTextBlindWatermark = () => {
     contentType: 'multi-line-text',
     content: 'hello my multiline blind watermark',
     fontColor: isDark.value ? '#fff' : '#000',
-    fontSize: 30,
+    fontSize: '30px',
     width: 200,
     height: 200,
     onSuccess: () => {
@@ -150,6 +158,7 @@ watermark.destroy() // 删除水印
 <el-affix target=".text-blind-watermark" position="bottom" :offset="0">
   <el-space class="block-operation">
     <VPButton text="添加文本暗水印" @click="handleAddTextBlindWatermark"></VPButton>
+    <VPButton text="修改文本暗水印" @click="handleUpdateTextBlindWatermark"></VPButton>
     <VPButton text="删除文本暗水印" @click="handleRemoveTextBlindWatermark"></VPButton>
   </el-space>
 </el-affix>
@@ -165,7 +174,7 @@ import { BlindWatermark } from 'watermark-js-plus' // 引入水印插件
 const watermark = new BlindWatermark({
   contentType: 'multi-line-text',
   content: 'hello my watermark watermark',
-  fontSize: 30,
+  fontSize: '30px',
   width: 200,
   height: 200,
   onSuccess: () => {
@@ -195,7 +204,7 @@ import { BlindWatermark } from 'watermark-js-plus' // 引入水印插件
 
 const watermark = new BlindWatermark({
   contentType: 'image',
-  content: 'https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/github-mkWBiK.png',
+  image: 'https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/github-mkWBiK.png',
   width: 300,
   height: 300,
   imageWidth: 100, // 图片宽度
@@ -218,7 +227,7 @@ watermark.destroy() // 删除水印
 </div>
 
 
-## 富文本水印
+## 富文本暗水印
 
 <div class="rich-text-blind-watermark">
 
@@ -264,7 +273,7 @@ BlindWatermark.decode({
 <el-row :gutter="20">
   <el-col :span="12">
     <el-tooltip content="淡色背景图片时使用" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         淡色背景<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>
@@ -289,7 +298,7 @@ BlindWatermark.decode({
   </el-col>
   <el-col :span="12">
     <el-tooltip content="深色背景图片时使用" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         深色背景<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>

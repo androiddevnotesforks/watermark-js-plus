@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Reference all watermark-js-plus options for content, layout, typography, opacity, animation, protection, and lifecycle callbacks.
 ---
 
 <el-backtop></el-backtop>
@@ -24,7 +25,7 @@ layout: doc
 - **Description**: Rotation angle of the watermark in degrees.
 
 ### layout
-- **Type**: `string`
+- **Type**: `LayoutType` (`'default' | 'grid'`)
 - **Default**: `'default'`
 - **Description**: Controls the arrangement of watermark elements
 - **Available Values**:
@@ -34,21 +35,22 @@ layout: doc
 
   - `'grid'` (Grid layout)
     * Arranges watermarks in a matrix grid pattern
-    * Requires `gridLayoutOptions` configuration
+    * `gridLayoutOptions` is optional and defaults to a 1 × 1 grid
     * Typical use case: Generating patterned watermark backgrounds
 
 ### gridLayoutOptions
-- **Type**: `GridLayoutOptions`
-- **Default**: `null`
+- **Type**: `GridLayoutOptions | undefined`
+- **Default**: `undefined`
 - **Description**: Custom options for grid-based layout configuration.
 - **Properties**:
   - `cols`: Number of columns (default: `1`)
   - `rows`: Number of rows (default: `1`)
   - `gap`: Spacing as `[horizontal, vertical]` (default: `[0, 0]`)
   - `matrix`: 2D matrix controlling visibility per grid cell (default: all `1`s)
-  - `backgroundImage`: Optional background image (covers entire grid)
+  - `backgroundImage`: Optional background image drawn across the grid; provide both `width` and `height` when using it
   - `width`: Optional custom total width (overrides cols/gap calculation)
   - `height`: Optional custom total height (overrides rows/gap calculation)
+- **Note**: For `Watermark` and `BlindWatermark`, custom grid `width` and `height` change the generated grid canvas, while the CSS background size is still calculated from the unit size, rows, columns, and gaps.
 
 ### auxiliaryLine
 - **Type**: `boolean`
@@ -80,46 +82,40 @@ layout: doc
   - For text watermarks, this also affects text baseline calculation
 
 ### translateX
-- **Type**: `number`
+- **Type**: `number | undefined`
 - **Default**: Auto-calculated (based on `translatePlacement` and `width`)
 - **Description**: 
   - Horizontal offset (in pixels)
   - Positive value → Right movement | Negative value ← Left movement
-  - Overrides horizontal positioning from `translatePlacement`
   - Serves as X-coordinate for rotation pivot point
   - Affects calculation of linear/radial gradient start points
 
 ### translateY
-- **Type**: `number`
+- **Type**: `number | undefined`
 - **Default**: Auto-calculated (based on `translatePlacement` and `height`)
 - **Description**:
   - Vertical offset (in pixels)
   - Positive value ↓ Downward movement | Negative value ↑ Upward movement
-  - Overrides vertical positioning from `translatePlacement`
   - Serves as Y-coordinate for rotation pivot point
   - Affects automatic calculation of text baseline (`textBaseline`)
+- **Note**: Custom coordinates require both `translateX` and `translateY`. If a non-`middle` `translatePlacement` is also explicitly provided, that placement takes precedence.
 
 ### movable (animation)
 - **Type**: `boolean`
 - **Default**: `false`
 - **Description**:  
-  When enabled, the watermark will exhibit physics-based animated motion. The behavior differs based on `backgroundRepeat`:
-  - `repeat`: Full 2D floating animation (200s duration)
-  - `repeat-x`: Horizontal oscillation (random 2-8s duration)
-  - `repeat-y`: Vertical oscillation (random 2-4s duration)
-  - `no-repeat`: Combined horizontal+vertical movement. The watermark node will simulate collision-based movement within its parent element, automatically bouncing off boundaries.
+  When enabled, CSS animations change the watermark's background position. The behavior differs based on `backgroundRepeat`:
+  - `repeat`: 2D background-position animation (200s duration)
+  - `repeat-x`: Vertical background-position animation (random 2-8s duration)
+  - `repeat-y`: Horizontal background-position animation (random 2-4s duration)
+  - `no-repeat`: Combined horizontal and vertical background-position animation
 - **Live Examples**:
   - [StackBlitz](https://stackblitz.com/edit/webpack-webpack-js-org-wq26h43z)
   - [Demo](https://zhensherlock.github.io/watermark-js-plus/guide/watermark.html#child-element-watermark)
 - **Mechanism**:
   - Implemented via CSS `animation` with randomized durations
   - Uses `alternate` direction for ping-pong effect
-  - Speed ranges:
-    - Horizontal: 2-8 seconds per cycle
-    - Vertical: 2-4 seconds per cycle
-- **Note**:
-  - Disables when `mutationObserve` is active
-  - For physics-based movement, combine with `advancedStyle` gradients
+  - Durations use the ranges listed above for each `backgroundRepeat` value
 
 ### zIndex
 - **Type**: `number`
@@ -134,7 +130,7 @@ layout: doc
 ## Content Configuration
 
 ### contentType
-- **Type**: `string`
+- **Type**: `ContentTypeType` (`'text' | 'image' | 'multi-line-text' | 'rich-text'`)
 - **Default**: `'text'`
 - **Available Values**:
   - `'text'`: Simple text watermark
@@ -146,10 +142,10 @@ layout: doc
 ### content
 - **Type**: `string`
 - **Default**: `'hello watermark-js-plus'`
-- **Description**: The actual content to display (text or image URL).
+- **Description**: Text or HTML used by text, multi-line-text, and rich-text modes. Image mode uses the separate `image` option.
 
 ### textType
-- **Type**: `string`
+- **Type**: `TextType` (`'fill' | 'stroke'`)
 - **Default**: `'fill'`
 - **Available Values**: `'fill'` | `'stroke'`
 - **Description**: Rendering method for text content.
@@ -187,12 +183,14 @@ layout: doc
 - **Description**: Text color.
 
 ### textAlign
-- **Type**: `string`
+- **Type**: `TextAlignType | undefined`
+- **Default**: Auto-calculated from `translatePlacement` (`'center'` for the default middle placement, or `'left'` when both custom coordinates are used)
 - **Available Values**: `'center'`, `'end'`, `'left'`, `'right'`, `'start'`
 - **Description**: Horizontal text alignment.
 
 ### textBaseline
-- **Type**: `string`
+- **Type**: `TextBaselineType | undefined`
+- **Default**: Auto-calculated from `translatePlacement` (`'middle'` for the default middle placement, or `'top'` when both custom coordinates are used)
 - **Available Values**:
   - `'top'`, `'bottom'`, `'middle'`
   - `'alphabetic'`, `'hanging'`, `'ideographic'`
@@ -205,8 +203,9 @@ layout: doc
 - **Description**: Line height for multi-line text.
 
 ### textRowMaxWidth
-- **Type**: `number`
-- **Description**: Maximum width for text rows before wrapping.
+- **Type**: `number | undefined`
+- **Default**: The configured `width`
+- **Description**: Canvas text `maxWidth`; it is also the wrapping threshold for multi-line text.
 
 ### letterSpacing
 - **Type**: `string`
@@ -221,27 +220,30 @@ layout: doc
 ## Image Configuration
 
 ### image
-- **Type**: `string`
-- **Description**: URL of the image to use as watermark (when contentType = 'image').
+- **Type**: `string | undefined`
+- **Default**: `undefined`
+- **Description**: URL of the image to use as watermark when `contentType = 'image'`. It is loaded with `crossOrigin="anonymous"`, so remote servers must allow CORS.
 
 ### imageWidth
 - **Type**: `number`
 - **Default**: `0`
-- **Description**: Display width for the image (0 = natural width).
+- **Description**: Display width. When both image dimensions are `0`, the natural size is used; when only `imageHeight` is set, width is calculated from the original aspect ratio.
 
 ### imageHeight
 - **Type**: `number`
 - **Default**: `0`
-- **Description**: Display height for the image (0 = natural height).
+- **Description**: Display height. When both image dimensions are `0`, the natural size is used; when only `imageWidth` is set, height is calculated from the original aspect ratio.
 
 ## Rich Text Configuration
 
 ### richTextWidth
-- **Type**: `number`
+- **Type**: `number | undefined`
+- **Default**: Measured rich-text content width, falling back to `width`
 - **Description**: Width constraint for rich text content.
 
 ### richTextHeight
-- **Type**: `number`
+- **Type**: `number | undefined`
+- **Default**: Measured rich-text content height, falling back to `height`
 - **Description**: Height constraint for rich text content.
 
 ## Visual Effects
@@ -270,8 +272,8 @@ layout: doc
 Multiple filters can be combined by space-separating them (e.g., `brightness(120%) contrast(110%)`). The value `'none'` indicates no filter effect.
 
 ### shadowStyle
-- **Type**: `CanvasShadowStyles`
-- **Default**: `null`
+- **Type**: `Partial<CanvasShadowStyles> | undefined`
+- **Default**: `undefined`
 - **Properties**:
   - `shadowColor`: `string`  
     Shadow color (supports all CSS color formats)
@@ -292,8 +294,8 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
   - May appear subtle at low opacity (`globalAlpha < 0.3`)
 
 ### advancedStyle
-- **Type**: `AdvancedStyleType`
-- **Default**: `null`
+- **Type**: `AdvancedStyleType | undefined`
+- **Default**: `undefined`
 - **Properties**:
   - `type`: `'linear' | 'radial' | 'conic' | 'pattern'`  
     Gradient type (linear/radial/conic/pattern)
@@ -311,12 +313,11 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 - **Description**:
   Enables advanced fill styles that override default `fontColor`. Supports:
   - All CSS gradient types (auto-adapted to Canvas coordinates)
-  - Image pattern fills (with cross-origin support)
+  - Image pattern fills
   - Smart coordinate positioning (auto-adjusts gradient points based on `translatePlacement`)
 - **Note**:
   - Works with `textType` (applies to both `fillStyle` and `strokeStyle`)
   - Requires preloaded images for `pattern` type
-  - Coordinate system affected by `rotate` and `translateX/Y` transforms
 
 ### backgroundPosition
 - **Type**: `string`
@@ -331,19 +332,17 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 ## Behavior & Security
 
 ### mode
-- **Type**: `string`
+- **Type**: `CreateWatermarkModeType` (`'default' | 'blind'`)
 - **Default**: `'default'`
 - **Available Values**:
   - `'default'`: Standard visible watermark mode (normal transparency)
-  - `'blind'`: Invisible watermark mode (extremely low transparency) for covert protection
-- **Description**: Determines the watermark visibility behavior.
-  - In `default` mode, the watermark is visibly displayed with configured transparency.
-  - In `blind` mode, the watermark becomes nearly invisible (fixed at globalAlpha=0.005) while remaining detectable through decoding.
+  - `'blind'`: Blind watermark mode identifier
+- **Description**: Identifies the intended watermark mode. In a regular `Watermark`, setting this option to `'blind'` does not change opacity by itself. `BlindWatermark` enforces `mode: 'blind'` and `globalAlpha: 0.005`.
 
 ### mutationObserve
 - **Type**: `boolean`
 - **Default**: `true`
-- **Description**: Whether to monitor DOM for unauthorized changes.
+- **Description**: Whether to observe relevant attribute, child, and text changes within the watermark, plus direct removal from its parent, and recreate it when detected.
 
 ### monitorProtection
 - **Type**: `boolean`
@@ -354,14 +353,14 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 ## Callbacks
 
 ### extraDrawFunc
-- **Type**: `Function`
-- **Default**: `() => {}`
+- **Type**: `Function | undefined`
+- **Default**: `undefined`
 - **Description**: Additional drawing operations callback.
 
 ### onSuccess
 - **Type**: `Function`
 - **Default**: `() => {}`
-- **Description**: Called when watermark is successfully applied.
+- **Description**: Called after the first successful creation. Redraws do not call it again; creating after `destroy()` does.
 
 ### onBeforeDestroy
 - **Type**: `Function`
@@ -377,3 +376,15 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 - **Type**: `Function`
 - **Default**: `() => {}`
 - **Description**: Called when mutation observation fails.
+
+## ImageWatermark-only Configuration
+
+### dom
+- **Type**: `HTMLImageElement`
+- **Required**: Required when calling `ImageWatermark.create()`
+- **Description**: Target image element. Its `src` is replaced with the generated watermarked PNG Data URL, and `destroy()` restores the original `src`.
+
+### crossOrigin
+- **Type**: `boolean | undefined`
+- **Default**: `undefined`
+- **Description**: When truthy, sets the target image element's `crossOrigin` attribute to `'anonymous'`. For a cross-origin image, the server must return compatible CORS headers for Canvas export.

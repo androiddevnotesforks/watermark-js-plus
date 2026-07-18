@@ -1,18 +1,23 @@
 ---
 layout: doc
+description: 了解如何使用 watermark-js-plus 的框架无关 TypeScript API，为浏览器页面添加可见水印、图片水印和暗水印。
 ---
 
 <el-backtop></el-backtop>
 
-# 这是什么?
-这是一个基于 *Canvas* 的浏览器水印库。
+# watermark-js-plus 是什么？
+
+`watermark-js-plus` 是一个轻量、基于 Canvas 的 TypeScript 浏览器水印库。它可以直接用于原生 JavaScript 和各种前端框架，无需安装框架专用适配器。
+
+你可以用它为整个页面或指定容器添加可见水印、将水印直接绘制到现有图片中，或者生成和显现低透明度暗水印。
 
 ## 功能
-- 创建常规水印和暗水印
-- 支持文本、多行文本、图片、富文本
-- 支持监听DOM改动行为，可防止水印被手动删除
-- 支持TypeScript
-- 丰富的配置项
+
+- 提供页面、容器、图片和暗水印 API
+- 支持文本、多行文本、图片和富文本内容
+- 支持灵活布局、样式、动画和运行时更新
+- 可选的 DOM 篡改检测与水印恢复
+- 内置完整的公共 TypeScript 类型声明
 
 ## 浏览器兼容性
 

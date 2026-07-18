@@ -1,16 +1,14 @@
 ---
 layout: home
 sidebar: false
-title: watermark-js-plus.js
-titleTemplate: Watermark
+title: watermark-js-plus — JavaScript 与 TypeScript 浏览器水印库
+titleTemplate: false
+description: 一个轻量、框架无关的 TypeScript 浏览器水印库，支持可见水印、图片水印和暗水印。
 
 hero:
   name: watermark-js-plus
-  text: 高级的水印插件
-  tagline: 简易、强大、高性能。
-  image:
-    src: /hero-image.png
-    alt: watermark-js-plus
+  text: 适用于任意框架的浏览器水印库
+  tagline: 使用轻量的 TypeScript API 添加可见水印、图片水印和暗水印。
   actions:
     - theme: brand
       text: 开始 👆
@@ -20,14 +18,25 @@ hero:
       link: https://github.com/zhensherlock/watermark-js-plus
 
 features:
-  - icon: 🛠️
-    title: 丰富的功能
-    details: 支持文本、多行文本、图片、富文本和暗水印。
-  - icon: 🔑
-    title: 完全类型化的API
-    details: 灵活的 API 和完整的 TypeScript 类型。
-  - icon: 📦
-    title: 极致轻量化
-    details: 大小只有 5kb 左右，你甚至可能忘记它的存在！
+  - icon:
+      src: /features/three-watermark-apis.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: 三类水印 API
+    details: 为页面和容器添加水印、将水印绘制到图片中，或创建并显现暗水印。
+  - icon:
+      src: /features/framework-agnostic.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: 框架无关
+    details: 同一套浏览器 API 可用于原生 JavaScript、React、Vue、Angular、Svelte 等前端技术栈。
+  - icon:
+      src: /features/typescript-first.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: TypeScript 优先
+    details: 使用完整公共类型，并获得灵活样式、生命周期控制和可选的防篡改恢复能力。
 ---
-

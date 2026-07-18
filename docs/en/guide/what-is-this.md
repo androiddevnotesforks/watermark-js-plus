@@ -1,18 +1,23 @@
 ---
 layout: doc
+description: Learn how watermark-js-plus adds visible, image, and blind watermarks to browser pages with framework-agnostic TypeScript APIs.
 ---
 
 <el-backtop></el-backtop>
 
-# What is this?
-This is a *canvas-based* watermark library for browsers.
+# What is watermark-js-plus?
+
+`watermark-js-plus` is a lightweight, Canvas-based TypeScript library for adding watermarks in the browser. It works with vanilla JavaScript and frontend frameworks without requiring a framework-specific adapter.
+
+Use it to protect a page or container with a visible watermark, render a watermark directly into an existing image, or create and reveal low-opacity blind watermarks.
 
 ## Features
-- Create watermark and blind watermark
-- Supports text, multi text, image, rich text
-- Watching for DOM changes
-- Supports typescript
-- Rich configuration
+
+- Page, container, image, and blind watermark APIs
+- Text, multi-line text, image, and rich-text content
+- Flexible layouts, styling, animation, and runtime updates
+- Optional DOM tamper detection and watermark recovery
+- Complete public TypeScript declarations
 
 ## Browser Support
 

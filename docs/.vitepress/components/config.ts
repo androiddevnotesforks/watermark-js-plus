@@ -17,7 +17,6 @@ export const defaultConfig = {
   monitorProtection: true,
   auxiliaryLine: false,
   movable: false,
-  mode: 'default',
   parent: 'body',
   backgroundPosition: '0 0, 0 0',
   backgroundRepeat: 'repeat',
@@ -118,7 +117,6 @@ export const imageOptionKeys = [
 
 export const styleOptionKeys = [
   'globalAlpha',
-  'mode',
   'textType',
   'lineHeight',
   'fontSize',

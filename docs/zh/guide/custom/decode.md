@@ -4,11 +4,17 @@ layout: doc
 # 解析配置
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { Plus, Warning } from '@element-plus/icons-vue'; 
+import { ref, onMounted, onUnmounted } from 'vue';
+import { UploadFilled } from '@element-plus/icons-vue';
+import { genFileId } from 'element-plus';
+import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
 import { BlindWatermark } from '../../../../src';
 
+const upload = ref<UploadInstance>();
+const fileList = ref<UploadUserFile[]>([]);
 const imageUrl = ref('');
+const previewImageUrl = ref('');
+const previewVisible = ref(false);
 const theme = ref('light');
 const compositeOperation = ref('overlay');
 const compositeTimes = ref(4);
@@ -44,11 +50,43 @@ const compositeOperations = [
   'luminosity'
 ];
 
-onMounted(() => {
-});
+const handleChangeImageSuccess: UploadProps['onChange'] = (uploadFile) => {
+  const url = uploadFile.url;
+  if (!url) {
+    return;
+  }
+  updateImageUrl(url);
+};
 
-const handleChangeImageSuccess = (uploadFile) => {
-  imageUrl.value = uploadFile.url;
+const replaceUploadFile = (file: UploadRawFile) => {
+  previewImageUrl.value = '';
+  previewVisible.value = false;
+  upload.value?.clearFiles();
+  file.uid = genFileId();
+  upload.value?.handleStart(file);
+};
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  replaceUploadFile(files[0] as UploadRawFile);
+};
+
+const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
+  previewImageUrl.value = uploadFile.url ?? '';
+  previewVisible.value = Boolean(previewImageUrl.value);
+};
+
+const handleRemove: UploadProps['onRemove'] = () => {
+  imageUrl.value = '';
+  previewImageUrl.value = '';
+  previewVisible.value = false;
+  resultImageUrl.value = '';
+};
+
+const updateImageUrl = (url: string) => {
+  if (imageUrl.value !== url && imageUrl.value.startsWith('blob:')) {
+    URL.revokeObjectURL(imageUrl.value);
+  }
+  imageUrl.value = url;
   handleDecode();
 };
 
@@ -88,28 +126,57 @@ const handleDecode = () => {
     }
   });
 };
+
+const handlePaste = (event: ClipboardEvent) => {
+  const imageItem = Array.from(event.clipboardData?.items ?? []).find(
+    (item) => item.kind === 'file' && item.type.startsWith('image/')
+  );
+  const imageFile = imageItem?.getAsFile();
+  if (!imageFile) {
+    return;
+  }
+  event.preventDefault();
+  replaceUploadFile(imageFile as UploadRawFile);
+};
+
+onMounted(() => {
+  window.addEventListener('paste', handlePaste);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('paste', handlePaste);
+});
 </script>
 
 <div>
-  <div class="title">原图</div>
-  <el-space>
+  <section class="upload-section" aria-labelledby="decode-image-title">
+    <div id="decode-image-title" class="title">原图</div>
     <el-upload
-      style="display: inline-block"
+      ref="upload"
+      v-model:file-list="fileList"
+      class="decode-uploader"
+      drag
       list-type="picture-card"
       accept="image/*"
       :auto-upload="false"
-      :show-file-list="false"
+      :limit="1"
       :on-change="handleChangeImageSuccess"
+      :on-exceed="handleExceed"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
     >
-      <el-icon><Plus /></el-icon>
+      <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
+      <div class="el-upload__text">
+        将图片拖到此处或<em>点击上传</em>
+      </div>
+      <template #tip>
+        <div class="el-upload__tip">仅支持图片 · 也可按 Ctrl+V 或 Cmd+V 粘贴上传</div>
+      </template>
     </el-upload>
-    <el-image
-      v-if="imageUrl"
-      style="width: 148px; height: 148px"
-      :src="imageUrl"
-      :preview-src-list="[imageUrl]"
-    />
-  </el-space>
+    <el-dialog v-model="previewVisible">
+      <img class="preview-dialog-image" :src="previewImageUrl" alt="图片预览" />
+    </el-dialog>
+  </section>
   <div class="title">参数</div>
 
   <el-descriptions :column="1" border>
@@ -134,11 +201,13 @@ const handleDecode = () => {
 
   <div class="title">结果</div>
   <el-image
+    v-if="resultImageUrl"
     style="width: 400px; height: 400px"
     :src="resultImageUrl"
     :preview-src-list="[resultImageUrl]"
     fit="cover"
   />
+  <el-empty v-else description="请上传图片" />
 </div>
 
 <el-backtop></el-backtop>
@@ -149,5 +218,50 @@ const handleDecode = () => {
   font-size: 16px;
   font-weight: bold;
   margin: 10px 0;
+}
+.upload-section {
+  margin-bottom: 24px;
+}
+.decode-uploader {
+  display: block;
+  width: min(100%, 556px);
+}
+.decode-uploader :deep(.el-upload-list--picture-card) {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding-left: 0;
+}
+.decode-uploader :deep(.el-upload--picture-card) {
+  background: transparent;
+  border: 0;
+  height: 180px;
+  margin: 0;
+  order: -1;
+  width: min(100%, 360px);
+}
+.decode-uploader :deep(.el-upload-dragger) {
+  width: 100%;
+  height: 180px;
+}
+.decode-uploader :deep(.el-upload-list__item) {
+  height: 180px;
+  margin: 0;
+  width: 180px;
+}
+.decode-uploader :deep(.el-upload-list__item-thumbnail) {
+  display: block;
+  margin: 0;
+}
+.decode-uploader :deep(.el-upload__tip) {
+  color: var(--el-text-color-secondary);
+  margin-top: 8px;
+}
+.preview-dialog-image {
+  display: block;
+  max-height: 70vh;
+  object-fit: contain;
+  width: 100%;
 }
 </style>

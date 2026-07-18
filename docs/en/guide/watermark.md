@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Add configurable text, image, rich-text, moving, and container watermarks to browser pages with the Watermark API.
 ---
 # Watermark
 

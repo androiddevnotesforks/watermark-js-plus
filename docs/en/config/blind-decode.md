@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Configure BlindWatermark.decode to enhance and reveal a blind watermark contained in a screenshot or image.
 ---
 
 <el-backtop></el-backtop>
@@ -9,13 +10,13 @@ layout: doc
 ## url
 - **Type**: `string`
 - **Default**: `''`
-- **Description**: Path to the image requiring decoding (URL or base64)
+- **Description**: Source image URL or Data URL. The decoder does not set `crossOrigin`, so use a same-origin source or Data URL to avoid a tainted Canvas and export failure.
 
 ## mode
-- **Type**: `string`
+- **Type**: `'canvas' | 'html' | 'svg'`
 - **Default**: `'canvas'`
-- **Available Values**: `'canvas'`
-- **Description**: Decoding mode, currently only canvas method is supported
+- **Supported Value**: `'canvas'`
+- **Description**: Only canvas decoding is implemented. The typed `'html'` and `'svg'` values currently perform no decoding.
 
 ## fillColor
 - **Type**: `string`
@@ -25,17 +26,17 @@ layout: doc
 ## compositeOperation
 - **Type**: `string`
 - **Default**: `'color-burn'`
-- **Description**: Image composite operation type used to enhance watermark visibility
+- **Description**: Image composite operation used to enhance watermark visibility. The IE entry provides a software fallback for `'color-burn'` and `'overlay'` when the browser does not support them.
 
 ## compositeTimes
 - **Type**: `number`
 - **Default**: `3`
-- **Description**: Number of composite operation repetitions - more repetitions make watermark more visible
+- **Description**: Number of composite passes. The visual result depends on `compositeOperation` and `fillColor`; values less than or equal to `0` skip compositing.
 
 ## onSuccess
-- **Type**: `Function`
+- **Type**: `Function | undefined`
 - **Default**: `undefined`
-- **Description**: Callback function after successful decoding, parameter contains decoded image data
+- **Description**: Callback after successful decoding; its parameter is the processed PNG Data URL.
 
 ## Decoding Principle
 Blind watermark decoding works through these steps:
@@ -55,3 +56,4 @@ BlindWatermark.decode({
     // Handle decoded image
   }
 })
+```

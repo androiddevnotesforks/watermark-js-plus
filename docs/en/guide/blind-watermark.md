@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Create low-opacity blind watermarks and reveal them from screenshots or images with the BlindWatermark API.
 ---
 # Blind Watermark
 
@@ -51,7 +52,7 @@ const handleAddMultiLineTextBlindWatermark = () => {
     contentType: 'multi-line-text',
     content: 'hello my multiline blind watermark',
     fontColor: isDark.value ? '#fff' : '#000',
-    fontSize: 30,
+    fontSize: '30px',
     width: 200,
     height: 200,
     onSuccess: () => {
@@ -175,7 +176,7 @@ import { BlindWatermark } from 'watermark-js-plus' // import watermark plugin
 const watermark = new BlindWatermark({
   contentType: 'multi-line-text',
   content: 'hello my multiline blind watermark',
-  fontSize: 30,
+  fontSize: '30px',
   width: 200,
   height: 200,
   onSuccess: () => {
@@ -205,7 +206,7 @@ import { BlindWatermark } from 'watermark-js-plus' // import watermark plugin
 
 const watermark = new BlindWatermark({
   contentType: 'image',
-  content: 'http://upic-service.test.upcdn.net/uPic/github-JxMIKf.png',
+  image: 'https://cdn.jsdelivr.net/gh/zhensherlock/oss@main/uPic/github-mkWBiK.png',
   width: 300,
   height: 300,
   imageWidth: 100, // image width
@@ -273,7 +274,7 @@ BlindWatermark.decode({
 <el-row :gutter="20">
   <el-col :span="12">
     <el-tooltip content="Use a light background image" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         Light Background<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>
@@ -298,7 +299,7 @@ BlindWatermark.decode({
   </el-col>
   <el-col :span="12">
     <el-tooltip content="Use with dark background image" placement="right">
-      <el-link :underline="false">
+      <el-link underline="never">
         Dark Background<el-icon class="el-icon--right"><Warning /></el-icon>
       </el-link>
     </el-tooltip>

@@ -9,8 +9,8 @@ layout: doc
 ## create()
 - **Description**: Creates and renders the watermark on the specified parent element
 - **Behavior**:
-  - Validates watermark uniqueness in the DOM (throws error if duplicate found)
-  - Checks content validity based on contentType (text/image/rich-text)
+  - Returns without creating if a duplicate watermark is found in the parent element
+  - Checks content validity based on contentType (text/image/multi-line-text/rich-text)
   - Generates watermark canvas with configured styles (rotation, opacity, etc.)
   - Converts canvas to background image with proper positioning
   - Applies defensive CSS (!important flags, pointer-events: none)
@@ -48,11 +48,12 @@ layout: doc
 ## changeOptions()
 - **Description**: Updates watermark configuration
 - **Parameters**:
-  - args: `Partial<WatermarkOptions>` - New configuration options
-  - mode: 'overwrite'|'append' - How to merge new options
+  - args: `Partial<WatermarkOptions>` - New configuration options (default: `{}`)
+  - mode: 'overwrite'|'append' - How to merge new options (default: `'overwrite'`)
   - redraw: boolean - Whether to recreate immediately (default: true)
 - **Behavior**:
-  - Merges new options according to specified mode
+  - `overwrite` replaces previous explicit options, so omitted values return to defaults
+  - `append` merges into previous explicit options
   - Enables protection if monitorProtection=true
   - Recreates watermark if redraw=true
 - **Returns**: `Promise<void>`
@@ -64,7 +65,7 @@ layout: doc
 ## Technical Details
 - **DOM Structure**:
 ```html
-<div class="watermark" style="/* defensive CSS */">
+<div style="/* defensive CSS */">
   <div style="/* background image styles */"></div>
 </div>
   ```

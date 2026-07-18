@@ -1,16 +1,14 @@
 ---
 layout: home
 sidebar: false
-title: watermark-js-plus.js
-titleTemplate: Watermark
+title: watermark-js-plus — Browser Watermark Library for JavaScript and TypeScript
+titleTemplate: false
+description: A lightweight, framework-agnostic TypeScript library for visible, image, and blind watermarks in the browser.
 
 hero:
   name: watermark-js-plus
-  text: Advanced watermark plugin
-  tagline: Simple, powerful, and performant.
-  image:
-    src: /hero-image.png
-    alt: watermark-js-plus
+  text: Browser watermarks for any framework
+  tagline: Add visible, image, and blind watermarks with a lightweight TypeScript library.
   actions:
     - theme: brand
       text: Get Started 👆
@@ -20,14 +18,25 @@ hero:
       link: https://github.com/zhensherlock/watermark-js-plus
 
 features:
-  - icon: 🛠️
-    title: Rich Features
-    details: Supports text, multi-line text, image and rich text.
-  - icon: 🔑
-    title: Fully Typed APIs
-    details: Flexible programmatic APIs with full TypeScript typing..
-  - icon: 📦
-    title: Extremely light
-    details: weighs ~5kb, you will forget it's even there!
+  - icon:
+      src: /features/three-watermark-apis.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: Three watermark APIs
+    details: Add watermarks to pages and containers, render them into images, or create and reveal blind watermarks.
+  - icon:
+      src: /features/framework-agnostic.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: Framework agnostic
+    details: Use the same browser API with vanilla JavaScript, React, Vue, Angular, Svelte, and other frameworks.
+  - icon:
+      src: /features/typescript-first.svg
+      alt: ''
+      width: '72'
+      height: '72'
+    title: TypeScript first
+    details: Use complete public types with flexible styling, lifecycle controls, and optional tamper recovery.
 ---
-
