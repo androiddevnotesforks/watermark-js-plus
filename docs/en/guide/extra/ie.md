@@ -1,10 +1,11 @@
 ---
 layout: doc
+description: Use the Internet Explorer build and blind-decoding fallbacks for legacy browser support.
 ---
 
 <el-backtop></el-backtop>
 
-# Internet Explorer
+# Legacy Browser Support
 This plugin supports IE11 and partially supports IE10 and IE9.
 
 ## NPM

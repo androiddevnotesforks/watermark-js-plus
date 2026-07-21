@@ -1,10 +1,11 @@
 ---
 layout: doc
+description: 使用 Internet Explorer 构建和暗水印解码回退支持旧版浏览器。
 ---
 
 <el-backtop></el-backtop>
 
-# Internet Explorer
+# 旧版浏览器支持
 支持IE11，部分支持IE10和IE9。
 
 ## NPM
