@@ -14,6 +14,9 @@ hero:
       text: Get Started 👆
       link: /guide/getting-started
     - theme: alt
+      text: Try Online
+      link: /tools/
+    - theme: alt
       text: View on GitHub
       link: https://github.com/zhensherlock/watermark-js-plus
 

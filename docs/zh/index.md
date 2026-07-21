@@ -14,6 +14,9 @@ hero:
       text: 开始 👆
       link: /zh/guide/getting-started
     - theme: alt
+      text: 在线试用
+      link: /zh/tools/
+    - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/zhensherlock/watermark-js-plus
 
