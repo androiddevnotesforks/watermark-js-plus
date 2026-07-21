@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: 查看 watermark-js-plus 在 React、Vue、Angular、SvelteKit、Astro 和高级集成场景中的在线示例。
 ---
 
 <el-backtop></el-backtop>
@@ -8,7 +9,7 @@ layout: doc
 
 以下是在不同JavaScript框架中使用watermark-js-plus的完整实例集合。
 
-## React生态
+## React 生态
 
 | 框架   | 在线演示 |
 |-------------|----------|
@@ -16,7 +17,7 @@ layout: doc
 | Next.js     | [![在StackBlitz中打开](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/stackblitz-starters-pv2mvx) |
 | Remix       | [![在StackBlitz中打开](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/remix-run-remix-q4jgus) |
 
-## Vue Ecosystem
+## Vue 生态
 
 | 框架  | 在线演示 |
 |------------|----------|

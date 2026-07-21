@@ -1,5 +1,6 @@
 ---
 layout: doc
+description: Explore live watermark-js-plus examples for React, Vue, Angular, SvelteKit, Astro, and advanced integration scenarios.
 ---
 
 <el-backtop></el-backtop>

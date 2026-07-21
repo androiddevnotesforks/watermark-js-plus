@@ -5,7 +5,7 @@ description: 使用 npm、yarn 或固定版本的 CDN 脚本安装 watermark-js-
 
 <el-backtop></el-backtop>
 
-# 开始
+# 开始使用
 
 ## 安装
 
