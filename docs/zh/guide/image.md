@@ -75,6 +75,8 @@ const handleRemoveImageWatermark = () => {
 
 <el-backtop></el-backtop>
 
+精确的 API 说明参见 [ImageWatermark 配置项](/zh/config/#image-watermark-options)及 [Watermark 方法](/zh/config/function)中的适用方法。
+
 ## 文本水印
 
 <div class="text-card">

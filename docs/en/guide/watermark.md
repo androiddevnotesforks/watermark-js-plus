@@ -215,6 +215,8 @@ const handleRemoveChildElementWatermark = () => {
 
 <el-backtop></el-backtop>
 
+Use the [Watermark Configurator](/tools/watermark-configurator) to adjust options interactively and generate initialization code. For precise API details, see [Watermark options](/config/) and [Watermark methods](/config/function).
+
 ## Text Watermark
 
 <div class="text-watermark">
