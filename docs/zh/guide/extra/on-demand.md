@@ -1,34 +1,38 @@
 ---
 layout: doc
+description: 从 watermark-js-plus 的 ES 模块入口导入，配合现代构建工具和 Tree Shaking 使用。
 ---
 
 <el-backtop></el-backtop>
 
-# 按需加载
-本指南解释了如何在 watermark-js-plus 中使用按需加载功能，以通过仅加载您需要的组件来优化应用程序性能。
+# ES 模块导入
 
-## NPM
+watermark-js-plus 为现代构建工具提供了 ES 模块入口。请从 `watermark-js-plus/es` 导入应用使用的公开类，再由构建工具完成 Tree Shaking 和生产环境优化。
 
-使用 npm 时，您可以直接导入特定组件以减小包的大小
+## 从 ES 模块入口导入
 
 ```ts
-// 仅导入 Watermark 组件
+// Watermark 类
 import { Watermark } from 'watermark-js-plus/es'
 
-// 仅导入 BlindWatermark 组件
+// 暗水印及其解码
 import { BlindWatermark } from 'watermark-js-plus/es'
 
-// 仅导入 ImageWatermark 组件
+// 将水印绘制到图片
 import { ImageWatermark } from 'watermark-js-plus/es'
 
-// 注意：如果使用了 movable 参数，必须引入样式文件
+// 使用 movable 选项时必须引入
 import 'watermark-js-plus/style.css'
 ```
 
-## Benefits
-- 减小包体积：只加载您实际使用的组件
-- 提高性能：更小的 JavaScript 负载导致更快的页面加载
-- 更好的用户体验 ：更快的初始渲染和交互
-- 降低网络使用量 ：对于使用有限数据计划的用户特别有益
+也可以在一条语句中导入多个类：
 
-按需加载对于大型应用程序特别有用，在这些应用程序中，您可能只需要在应用程序的特定部分中使用特定的水印功能。
+```ts
+import { BlindWatermark, Watermark } from 'watermark-js-plus/es'
+```
+
+## 适用场景
+
+当项目使用 Vite、Rollup 或 webpack 等支持 ES 模块的构建工具时，可以使用 `/es` 入口。最终产物的体积取决于构建配置以及应用实际导入的代码。
+
+对大多数应用而言，从包根路径导入仍是最简单的方式。需要明确控制模块格式，或希望检查并优化构建产物时，再使用 ES 模块入口。
