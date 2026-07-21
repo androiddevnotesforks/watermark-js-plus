@@ -6,21 +6,14 @@ description: Create low-opacity blind watermarks and reveal them from screenshot
 
 <script setup lang="ts">
 import VPButton from 'vitepress/dist/client/theme-default/components/VPButton.vue';
-import { ref, getCurrentInstance, onMounted } from 'vue';
+import { getCurrentInstance } from 'vue';
 import dayjs from 'dayjs';
-import { Plus, Warning } from '@element-plus/icons-vue';
 import { useData } from 'vitepress';
-import { BlindWatermark } from '../../../src';
 import { useAppStore } from '../../.vitepress/stores/app';
 
 const appStore = useAppStore();
 const { isDark } = useData();
 const app = getCurrentInstance();
-const decodeBlindImageByLight = ref('');
-const decodeBlindImageByDark = ref('');
-
-onMounted(() => {
-});
 
 const handleAddTextBlindWatermark = () => {
   appStore.createWatermark({
@@ -108,33 +101,11 @@ const handleRemoveRichTextBlindWatermark = () => {
   appStore.removeWatermark();
 };
 
-// decode blind watermark
-const handleSuccessByLight = (uploadFile) => {
-  BlindWatermark.decode({
-    compositeTimes: 4,
-    compositeOperation: 'overlay',
-    // compositeTimes: 5,
-    // compositeOperation: 'soft-light',
-    url: uploadFile.url,
-    onSuccess: (imageBase64) => {
-      decodeBlindImageByLight.value = imageBase64
-    }
-  });
-}
-const handleSuccessByDark = (uploadFile) => {
-  BlindWatermark.decode({
-    fillColor: '#fff',
-    compositeTimes: 3,
-    compositeOperation: 'overlay',
-    url: uploadFile.url,
-    onSuccess: (imageBase64) => {
-      decodeBlindImageByDark.value = imageBase64
-    }
-  });
-}
 </script>
 
 <el-backtop></el-backtop>
+
+`BlindWatermark` inherits the content, layout, and lifecycle capabilities of `Watermark`, but always uses `globalAlpha: 0.005` and `mode: 'blind'`. See [BlindWatermark options](/config/blind) for the exact enforced values.
 
 ## Text Blind Watermark
 
@@ -259,6 +230,12 @@ watermark.destroy() // remove watermark
 
 ## Decode Blind Watermark
 
+For the easiest workflow, open the [Blind Watermark Decoder](/tools/blind-watermark-decoder) to upload or paste an image, adjust the decode options, and preview the result.
+
+Use `BlindWatermark.decode` when you need to integrate decoding into your own application. See [decode options](/config/blind-decode) for all available parameters.
+
+The decoder loads the source image into a Canvas, repeatedly applies the selected composite operation and fill color, then returns the enhanced image as a PNG Data URL.
+
 ```js
 import { BlindWatermark } from 'watermark-js-plus' // import watermark plugin
 
@@ -269,65 +246,5 @@ BlindWatermark.decode({
   onSuccess: (imageBase64) => {
     // success callback
   }
-});
+})
 ```
-<el-row :gutter="20">
-  <el-col :span="12">
-    <el-tooltip content="Use a light background image" placement="right">
-      <el-link underline="never">
-        Light Background<el-icon class="el-icon--right"><Warning /></el-icon>
-      </el-link>
-    </el-tooltip>
-    <div>
-      <el-upload
-        list-type="picture-card"
-        accept="image/*"
-        :auto-upload="false"
-        :show-file-list="false"
-        :on-change="handleSuccessByLight"
-      >
-        <el-icon><Plus /></el-icon>
-      </el-upload>
-      <el-image
-        v-if="decodeBlindImageByLight"
-        style="width: 400px; height: 400px;margin-top: 20px;"
-        :src="decodeBlindImageByLight"
-        :preview-src-list="[decodeBlindImageByLight]"
-        fit="cover"
-      />
-    </div>
-  </el-col>
-  <el-col :span="12">
-    <el-tooltip content="Use with dark background image" placement="right">
-      <el-link underline="never">
-        Dark Background<el-icon class="el-icon--right"><Warning /></el-icon>
-      </el-link>
-    </el-tooltip>
-    <div>
-      <el-upload
-        list-type="picture-card"
-        accept="image/*"
-        :auto-upload="false"
-        :show-file-list="false"
-        :on-change="handleSuccessByDark"
-      >
-        <el-icon><Plus /></el-icon>
-      </el-upload>
-      <el-image
-        v-if="decodeBlindImageByDark"
-        style="width: 400px; height: 400px;margin-top: 20px;"
-        :src="decodeBlindImageByDark"
-        :preview-src-list="[decodeBlindImageByDark]"
-        fit="cover"
-      />
-    </div>
-  </el-col>
-</el-row>
-
-[//]: # (<div style="position: relative;">)
-
-[//]: # (  <div style="position: absolute;top:0;bottom: 0;left: 0;right: 0;mix-blend-mode: color-burn;background: #000;"></div>)
-
-[//]: # (  <img width="200" src="http://upic-service.test.upcdn.net/uPic/iShot_2022-11-28_10.35.29-RP6dBG.png" alt="">)
-
-[//]: # (</div>)
