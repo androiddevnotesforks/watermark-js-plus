@@ -1,37 +1,37 @@
 <template>
   <div>
-    <el-descriptions title="Basic" :column="2" border>
-      <el-descriptions-item label="Width">
+    <el-descriptions :title="t('Basic', '基础')" :column="2" border>
+      <el-descriptions-item :label="t('Width', '宽度')">
         <el-input-number v-model="form.data.width" :min="1" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Height">
+      <el-descriptions-item :label="t('Height', '高度')">
         <el-input-number v-model="form.data.height" :min="1" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Rotate">
+      <el-descriptions-item :label="t('Rotate', '旋转角度')">
         <el-input-number v-model="form.data.rotate" :max="360" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Content" :column="2" border>
-      <el-descriptions-item label="Content Type" :span="2">
-        <el-select v-model="form.data.contentType" placeholder="please select content type" @change="handleChange">
+    <el-descriptions :title="t('Content', '内容')" :column="2" border>
+      <el-descriptions-item :label="t('Content Type', '内容类型')" :span="2">
+        <el-select v-model="form.data.contentType" :placeholder="t('Select a content type', '请选择内容类型')" @change="handleChange">
           <el-option label="text" value="text" />
           <el-option label="multi-line-text" value="multi-line-text" />
           <el-option label="image" value="image" />
           <el-option label="rich-text" value="rich-text" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Content" :span="2">
-        <el-input v-model="form.data.content" :rows="3" type="textarea" placeholder="please input content" @input="handleChange" />
+      <el-descriptions-item :label="t('Content', '内容')" :span="2">
+        <el-input v-model="form.data.content" :rows="3" type="textarea" :placeholder="t('Enter watermark content', '请输入水印内容')" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Position" :column="2" border>
+    <el-descriptions :title="t('Position', '定位')" :column="2" border>
       <template #title>
-        <el-checkbox v-model="form.position.enabled" @change="handleChangePositionEnabled">Position</el-checkbox>
+        <el-checkbox v-model="form.position.enabled" @change="handleChangePositionEnabled">{{ t('Position', '定位') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Translate Placement" :span="2">
-        <el-select v-model="form.data.translatePlacement" :disabled="!form.position.enabled" placeholder="please select translate placement" @change="handleChange">
+      <el-descriptions-item :label="t('Translate Placement', '水印位置')" :span="2">
+        <el-select v-model="form.data.translatePlacement" :disabled="!form.position.enabled" :placeholder="t('Select a placement', '请选择水印位置')" @change="handleChange">
           <el-option label="middle" value="middle" />
           <el-option label="top" value="top" />
           <el-option label="top-start" value="top-start" />
@@ -43,48 +43,48 @@
           <el-option label="right" value="right" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Translate X">
+      <el-descriptions-item :label="t('Translate X', '水平偏移')">
         <el-input-number v-model="form.data.translateX" :disabled="!form.position.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Translate Y">
+      <el-descriptions-item :label="t('Translate Y', '垂直偏移')">
         <el-input-number v-model="form.data.translateY" :disabled="!form.position.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Background Position">
-        <el-input v-model="form.data.backgroundPosition" :disabled="!form.position.enabled" placeholder="please input background position" @input="handleChange" />
+      <el-descriptions-item :label="t('Background Position', '背景位置')">
+        <el-input v-model="form.data.backgroundPosition" :disabled="!form.position.enabled" :placeholder="t('Enter a background position', '请输入背景位置')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Background Repeat">
-        <el-select v-model="form.data.backgroundRepeat" :disabled="!form.position.enabled" placeholder="please select background repeat" @change="handleChange">
+      <el-descriptions-item :label="t('Background Repeat', '背景重复')">
+        <el-select v-model="form.data.backgroundRepeat" :disabled="!form.position.enabled" :placeholder="t('Select a repeat mode', '请选择背景重复方式')" @change="handleChange">
           <el-option label="repeat" value="repeat" />
           <el-option label="repeat-x" value="repeat-x" />
           <el-option label="repeat-y" value="repeat-y" />
           <el-option label="no-repeat" value="no-repeat" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Parent">
-        <el-input v-model="form.data.parent" :disabled="!form.position.enabled" placeholder="please input parent" @input="handleChange" />
+      <el-descriptions-item :label="t('Parent', '父元素')">
+        <el-input v-model="form.data.parent" :disabled="!form.position.enabled" :placeholder="t('Enter a parent selector', '请输入父元素选择器')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Z-Index">
+      <el-descriptions-item label="z-index">
         <el-input-number v-model="form.data.zIndex" :disabled="!form.position.enabled" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Rich Text" :column="2" border>
+    <el-descriptions :title="t('Rich Text', '富文本')" :column="2" border>
       <template #title>
-        <el-checkbox v-model="form.richText.enabled" @change="handleChangeRichTextEnabled">Rich Text</el-checkbox>
+        <el-checkbox v-model="form.richText.enabled" @change="handleChangeRichTextEnabled">{{ t('Rich Text', '富文本') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Rich Text Width">
+      <el-descriptions-item :label="t('Rich Text Width', '富文本宽度')">
         <el-input-number v-model="form.data.richTextWidth" :disabled="!form.richText.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Rich Text Height">
+      <el-descriptions-item :label="t('Rich Text Height', '富文本高度')">
         <el-input-number v-model="form.data.richTextHeight" :disabled="!form.richText.enabled" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Image" :column="2" border>
+    <el-descriptions :title="t('Image', '图片')" :column="2" border>
       <template #title>
-        <el-checkbox v-model="form.image.enabled" @change="handleChangeImageEnabled">Image</el-checkbox>
+        <el-checkbox v-model="form.image.enabled" @change="handleChangeImageEnabled">{{ t('Image', '图片') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Image" :span="2">
+      <el-descriptions-item :label="t('Image', '图片')" :span="2">
         <el-upload
           ref="uploadImage"
           list-type="picture-card"
@@ -100,50 +100,50 @@
           <el-icon><Plus /></el-icon>
         </el-upload>
       </el-descriptions-item>
-      <el-descriptions-item label="Image Width">
+      <el-descriptions-item :label="t('Image Width', '图片宽度')">
         <el-input-number v-model="form.data.imageWidth" :disabled="!form.image.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Image Height">
+      <el-descriptions-item :label="t('Image Height', '图片高度')">
         <el-input-number v-model="form.data.imageHeight" :disabled="!form.image.enabled" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Style" :column="2" border>
+    <el-descriptions :title="t('Style', '样式')" :column="2" border>
       <template #title>
-        <el-checkbox v-model="form.style.enabled" @change="handleChangeStyleEnabled">Style</el-checkbox>
+        <el-checkbox v-model="form.style.enabled" @change="handleChangeStyleEnabled">{{ t('Style', '样式') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Global Alpha">
+      <el-descriptions-item :label="t('Global Alpha', '全局透明度')">
         <el-input-number v-model="form.data.globalAlpha" :disabled="!form.style.enabled" :max="1" :precision="2" :step="0.1" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Text Type">
-        <el-select v-model="form.data.textType" :disabled="!form.style.enabled" placeholder="please select text type" @change="handleChange">
+      <el-descriptions-item :label="t('Text Type', '文字绘制方式')">
+        <el-select v-model="form.data.textType" :disabled="!form.style.enabled" :placeholder="t('Select a text type', '请选择文字绘制方式')" @change="handleChange">
           <el-option label="fill" value="fill" />
           <el-option label="stroke" value="stroke" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Line Height">
+      <el-descriptions-item :label="t('Line Height', '行高')">
         <el-input-number v-model="form.data.lineHeight" :disabled="!form.style.enabled" @change="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Size">
-        <el-input v-model="form.data.fontSize" :disabled="!form.style.enabled" placeholder="please input font size" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Size', '字号')">
+        <el-input v-model="form.data.fontSize" :disabled="!form.style.enabled" :placeholder="t('Enter a font size', '请输入字号')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Family">
-        <el-input v-model="form.data.fontFamily" :disabled="!form.style.enabled" placeholder="please input font family" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Family', '字体')">
+        <el-input v-model="form.data.fontFamily" :disabled="!form.style.enabled" :placeholder="t('Enter a font family', '请输入字体')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Style">
-        <el-input v-model="form.data.fontStyle" :disabled="!form.style.enabled" placeholder="please input font style" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Style', '字体样式')">
+        <el-input v-model="form.data.fontStyle" :disabled="!form.style.enabled" :placeholder="t('Enter a font style', '请输入字体样式')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Variant">
-        <el-input v-model="form.data.fontVariant" :disabled="!form.style.enabled" placeholder="please input font variant" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Variant', '字体变体')">
+        <el-input v-model="form.data.fontVariant" :disabled="!form.style.enabled" :placeholder="t('Enter a font variant', '请输入字体变体')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Color">
-        <el-input v-model="form.data.fontColor" :disabled="!form.style.enabled" placeholder="please input font color" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Color', '字体颜色')">
+        <el-input v-model="form.data.fontColor" :disabled="!form.style.enabled" :placeholder="t('Enter a font color', '请输入字体颜色')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Font Weight">
-        <el-input v-model="form.data.fontWeight" :disabled="!form.style.enabled" placeholder="please input font weight" @input="handleChange" />
+      <el-descriptions-item :label="t('Font Weight', '字重')">
+        <el-input v-model="form.data.fontWeight" :disabled="!form.style.enabled" :placeholder="t('Enter a font weight', '请输入字重')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Text Align">
-        <el-select v-model="form.data.textAlign" :disabled="!form.style.enabled" placeholder="please select text align" @change="handleChange">
+      <el-descriptions-item :label="t('Text Align', '文字对齐')">
+        <el-select v-model="form.data.textAlign" :disabled="!form.style.enabled" :placeholder="t('Select text alignment', '请选择文字对齐方式')" @change="handleChange">
           <el-option label="center" value="center" />
           <el-option label="end" value="end" />
           <el-option label="left" value="left" />
@@ -151,8 +151,8 @@
           <el-option label="start" value="start" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Text Baseline">
-        <el-select v-model="form.data.textBaseline" :disabled="!form.style.enabled" placeholder="please select text baseline" @change="handleChange">
+      <el-descriptions-item :label="t('Text Baseline', '文字基线')">
+        <el-select v-model="form.data.textBaseline" :disabled="!form.style.enabled" :placeholder="t('Select a text baseline', '请选择文字基线')" @change="handleChange">
           <el-option label="alphabetic" value="alphabetic" />
           <el-option label="hanging" value="hanging" />
           <el-option label="ideographic" value="ideographic" />
@@ -161,47 +161,47 @@
           <el-option label="middle" value="middle" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="Filter">
+      <el-descriptions-item :label="t('Filter', '滤镜')">
 <!--        <el-input v-model="form.data.filter" :disabled="!form.style.enabled" placeholder="please input filter" @input="handleChange" />-->
-        <el-select v-model="filterValue" :disabled="!form.style.enabled" multiple filterable allow-create :reserve-keyword="false" placeholder="please input filter" @change="handleFilterChange">
+        <el-select v-model="filterValue" :disabled="!form.style.enabled" multiple filterable allow-create :reserve-keyword="false" :placeholder="t('Enter or select filters', '输入或选择滤镜')" @change="handleFilterChange">
           <el-option v-for="item in filterOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-descriptions-item>
-      <el-descriptions-item label="TextRowMaxWidth">
+      <el-descriptions-item :label="t('Text Row Max Width', '文本行最大宽度')">
         <el-input-number v-model="form.data.textRowMaxWidth" :disabled="!form.style.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Letter Spacing">
-        <el-input v-model="form.data.letterSpacing" :disabled="!form.style.enabled" placeholder="please input letter spacing" @input="handleChange" />
+      <el-descriptions-item :label="t('Letter Spacing', '字符间距')">
+        <el-input v-model="form.data.letterSpacing" :disabled="!form.style.enabled" :placeholder="t('Enter letter spacing', '请输入字符间距')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Word Spacing">
-        <el-input v-model="form.data.wordSpacing" :disabled="!form.style.enabled" placeholder="please input word spacing" @input="handleChange" />
+      <el-descriptions-item :label="t('Word Spacing', '单词间距')">
+        <el-input v-model="form.data.wordSpacing" :disabled="!form.style.enabled" :placeholder="t('Enter word spacing', '请输入单词间距')" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Shadow" :column="2" border v-if="form.data.shadowStyle">
+    <el-descriptions :title="t('Shadow', '阴影')" :column="2" border v-if="form.data.shadowStyle">
       <template #title>
-        <el-checkbox v-model="form.shadow.enabled" @change="handleChangeShadowEnabled">Shadow</el-checkbox>
+        <el-checkbox v-model="form.shadow.enabled" @change="handleChangeShadowEnabled">{{ t('Shadow', '阴影') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Shadow Blur">
+      <el-descriptions-item :label="t('Shadow Blur', '阴影模糊')">
         <el-input-number v-model="form.data.shadowStyle.shadowBlur" :disabled="!form.shadow.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Shadow Color">
-        <el-input v-model="form.data.shadowStyle.shadowColor" :disabled="!form.shadow.enabled" placeholder="please input shadow color" @input="handleChange" />
+      <el-descriptions-item :label="t('Shadow Color', '阴影颜色')">
+        <el-input v-model="form.data.shadowStyle.shadowColor" :disabled="!form.shadow.enabled" :placeholder="t('Enter a shadow color', '请输入阴影颜色')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Shadow OffsetX">
+      <el-descriptions-item :label="t('Shadow Offset X', '阴影水平偏移')">
         <el-input-number v-model="form.data.shadowStyle.shadowOffsetX" :disabled="!form.shadow.enabled" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Shadow OffsetY">
+      <el-descriptions-item :label="t('Shadow Offset Y', '阴影垂直偏移')">
         <el-input-number v-model="form.data.shadowStyle.shadowOffsetY" :disabled="!form.shadow.enabled" @input="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
 
-    <el-descriptions title="Advanced Style" :column="2" border v-if="form.data.shadowStyle">
+    <el-descriptions :title="t('Advanced Style', '高级样式')" :column="2" border v-if="form.data.shadowStyle">
       <template #title>
-        <el-checkbox v-model="form.advancedStyle.enabled" @change="handleChangeAdvancedStyleEnabled">Advanced Style</el-checkbox>
+        <el-checkbox v-model="form.advancedStyle.enabled" @change="handleChangeAdvancedStyleEnabled">{{ t('Advanced Style', '高级样式') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Type" :span="2">
-        <el-select v-model="form.data.advancedStyle.type" :disabled="!form.advancedStyle.enabled" placeholder="please select type" @change="handleChange">
+      <el-descriptions-item :label="t('Type', '类型')" :span="2">
+        <el-select v-model="form.data.advancedStyle.type" :disabled="!form.advancedStyle.enabled" :placeholder="t('Select a style type', '请选择样式类型')" @change="handleChange">
           <el-option label="linear" value="linear" />
           <el-option label="radial" value="radial" />
           <el-option label="conic" value="conic" />
@@ -254,7 +254,7 @@
         </el-descriptions-item>
       </template>
       <template v-if="form.data.advancedStyle.type === 'pattern'">
-        <el-descriptions-item label="Image">
+        <el-descriptions-item :label="t('Image', '图片')">
           <el-upload
             ref="uploadPatternImage"
             list-type="picture-card"
@@ -270,8 +270,8 @@
             <el-icon><Plus /></el-icon>
           </el-upload>
         </el-descriptions-item>
-        <el-descriptions-item label="Repetition">
-          <el-select v-model="form.data.advancedStyle.params.pattern.repetition" :disabled="!form.advancedStyle.enabled" placeholder="please select repetition" @change="handleChange">
+        <el-descriptions-item :label="t('Repetition', '重复方式')">
+          <el-select v-model="form.data.advancedStyle.params.pattern.repetition" :disabled="!form.advancedStyle.enabled" :placeholder="t('Select a repetition mode', '请选择重复方式')" @change="handleChange">
             <el-option label="repeat" value="repeat" />
             <el-option label="repeat-x" value="repeat-x" />
             <el-option label="repeat-y" value="repeat-y" />
@@ -281,28 +281,29 @@
       </template>
     </el-descriptions>
 
-    <el-descriptions title="Extra" :column="2" border>
+    <el-descriptions :title="t('Protection & Behavior', '保护与行为')" :column="2" border>
       <template #title>
-        <el-checkbox v-model="form.extra.enabled" @change="handleChangeExtraEnabled">Extra</el-checkbox>
+        <el-checkbox v-model="form.extra.enabled" @change="handleChangeExtraEnabled">{{ t('Protection & Behavior', '保护与行为') }}</el-checkbox>
       </template>
-      <el-descriptions-item label="Mutation Observe">
-        <el-switch v-model="form.data.mutationObserve" :disabled="!form.extra.enabled" active-text="Open" inactive-text="Close" @input="handleChange" />
+      <el-descriptions-item :label="t('Mutation Observer', 'DOM 变更监听')">
+        <el-switch v-model="form.data.mutationObserve" :disabled="!form.extra.enabled" :active-text="t('On', '开启')" :inactive-text="t('Off', '关闭')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Monitor Protection">
-        <el-switch v-model="form.data.monitorProtection" :disabled="!form.extra.enabled" active-text="Yes" inactive-text="No" @input="handleChange" />
+      <el-descriptions-item :label="t('Protection Monitor', '保护监控')">
+        <el-switch v-model="form.data.monitorProtection" :disabled="!form.extra.enabled" :active-text="t('Yes', '是')" :inactive-text="t('No', '否')" @input="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Auxiliary Line">
-        <el-switch v-model="form.data.auxiliaryLine" :disabled="!form.extra.enabled" active-text="Yes" inactive-text="No" @change="handleChange" />
+      <el-descriptions-item :label="t('Auxiliary Line', '辅助线')">
+        <el-switch v-model="form.data.auxiliaryLine" :disabled="!form.extra.enabled" :active-text="t('Yes', '是')" :inactive-text="t('No', '否')" @change="handleChange" />
       </el-descriptions-item>
-      <el-descriptions-item label="Movable">
-        <el-switch v-model="form.data.movable" :disabled="!form.extra.enabled" active-text="Yes" inactive-text="No" @change="handleChange" />
+      <el-descriptions-item :label="t('Movable', '动态移动')">
+        <el-switch v-model="form.data.movable" :disabled="!form.extra.enabled" :active-text="t('Yes', '是')" :inactive-text="t('No', '否')" @change="handleChange" />
       </el-descriptions-item>
     </el-descriptions>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted, watch, ref } from 'vue'
+import { computed, reactive, onMounted, watch, ref } from 'vue'
+import { useData } from 'vitepress'
 // import { cloneDeep, pick, defaultsDeep } from 'lodash'
 import cloneDeep from 'lodash/cloneDeep'
 import pick from 'lodash/pick'
@@ -332,6 +333,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['change'])
+const { lang } = useData()
+const t = (en: string, zh: string) => lang.value.startsWith('zh') ? zh : en
 
 const form = reactive({
   data: {} as WatermarkOptions,
@@ -360,37 +363,37 @@ const form = reactive({
 
 const filterValue = ref<string[]>([])
 
-const filterOptions = [{
+const filterOptions = computed(() => [{
   value: 'blur(2px)',
-  label: '高斯模糊-blur(2px)',
+  label: t('Blur — blur(2px)', '高斯模糊 — blur(2px)'),
 }, {
   value: 'brightness(30%)',
-  label: '调节亮度-brightness(30%)',
+  label: t('Brightness — brightness(30%)', '调节亮度 — brightness(30%)'),
 }, {
   value: 'contrast(30%)',
-  label: '调节对比度-contrast(30%)',
+  label: t('Contrast — contrast(30%)', '调节对比度 — contrast(30%)'),
 }, {
   value: 'grayscale(100%)',
-  label: '灰阶-grayscale(100%)',
+  label: t('Grayscale — grayscale(100%)', '灰阶 — grayscale(100%)'),
 }, {
   value: 'hue-rotate(100deg)',
-  label: '色彩旋转-hue-rotate(100deg)',
+  label: t('Hue rotation — hue-rotate(100deg)', '色彩旋转 — hue-rotate(100deg)'),
 }, {
   value: 'invert(100%)',
-  label: '反色图像-invert(100%)',
+  label: t('Invert — invert(100%)', '反色图像 — invert(100%)'),
 }, {
   value: 'opacity(50%)',
-  label: '调节透明度-opacity(50%)',
+  label: t('Opacity — opacity(50%)', '调节透明度 — opacity(50%)'),
 }, {
   value: 'saturate(10%)',
-  label: '调节饱和度-saturate(10%)',
+  label: t('Saturation — saturate(10%)', '调节饱和度 — saturate(10%)'),
 }, {
   value: 'sepia(100%)',
-  label: '深褐色处理-sepia(100%)',
+  label: t('Sepia — sepia(100%)', '深褐色处理 — sepia(100%)'),
 }, {
   value: 'drop-shadow(0px 0px 10px crimson)',
-  label: '阴影-drop-shadow(0px 0px 10px crimson)',
-}]
+  label: t('Drop shadow — drop-shadow(0px 0px 10px crimson)', '阴影 — drop-shadow(0px 0px 10px crimson)'),
+}])
 
 const handleFilterChange = (val) => {
   form.data.filter = val.join(' ')
