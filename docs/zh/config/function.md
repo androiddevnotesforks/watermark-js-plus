@@ -1,10 +1,15 @@
 ---
 layout: doc
+description: 查阅 Watermark 和 BlindWatermark 的实例方法，以及 ImageWatermark 支持的方法。
 ---
 
 <el-backtop></el-backtop>
 
-# 水印核心功能
+# Watermark 方法
+
+`Watermark` 和 `BlindWatermark` 支持以下全部方法；`ImageWatermark` 仅支持 `create()` 和 `destroy()`。
+
+**相关内容：** [Watermark 指南](/zh/guide/watermark) · [图片水印指南](/zh/guide/image) · [水印配置生成器](/zh/tools/watermark-configurator)
 
 ## create()
 - **描述**: 在指定父元素上创建并渲染水印

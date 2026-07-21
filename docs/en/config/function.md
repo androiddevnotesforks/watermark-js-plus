@@ -1,10 +1,15 @@
 ---
 layout: doc
+description: Reference the Watermark and BlindWatermark instance methods and the methods supported by ImageWatermark.
 ---
 
 <el-backtop></el-backtop>
 
-# Watermark Core Functions
+# Watermark Methods
+
+`Watermark` and `BlindWatermark` support every method below. `ImageWatermark` supports only `create()` and `destroy()`.
+
+**Related:** [Watermark guide](/guide/watermark) · [Image watermark guide](/guide/image) · [Watermark Configurator](/tools/watermark-configurator)
 
 ## create()
 - **Description**: Creates and renders the watermark on the specified parent element

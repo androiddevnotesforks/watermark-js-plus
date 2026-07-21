@@ -7,6 +7,8 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 
 # 水印配置选项
 
+**相关内容：** [Watermark 指南](/zh/guide/watermark) · [水印配置生成器](/zh/tools/watermark-configurator)
+
 ## 基础配置
 
 ### width
@@ -379,7 +381,7 @@ description: 查阅 watermark-js-plus 的内容、布局、字体、透明度、
 - **默认值**: `() => {}`
 - **描述**: 当DOM变化观察失败时调用
 
-## ImageWatermark 专属配置
+## ImageWatermark 专属配置 {#image-watermark-options}
 
 ### dom
 - **类型**: `HTMLImageElement`

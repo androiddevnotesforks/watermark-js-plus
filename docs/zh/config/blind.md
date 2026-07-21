@@ -1,10 +1,13 @@
 ---
 layout: doc
+description: 查阅 BlindWatermark 继承标准 Watermark 能力时强制使用的配置值。
 ---
 
 <el-backtop></el-backtop>
 
-# 暗水印配置
+# BlindWatermark 配置项
+
+**相关内容：** [暗水印指南](/zh/guide/blind-watermark) · [Watermark 配置项](/zh/config/)
 
 ## 继承说明
 本配置**继承所有**[水印配置选项](index.md)参数，但**固定以下值不可修改**:
@@ -22,13 +25,6 @@ layout: doc
 - **类型**: `string`
 - **固定值**: `'blind'`
 - **说明**: 锁定为暗水印模式，修改此值无效
-
-## 技术实现
-暗水印:
-1. 继承标准水印所有功能
-2. 初始化和更新时自动强制`globalAlpha=0.005`
-3. 永久固定`mode='blind'`(即使传入其他值)
-4. 保留父类所有其他可配置选项
 
 ## 使用示例
 ```javascript
