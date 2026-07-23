@@ -1,0 +1,25 @@
+{
+  "asset": "watermark-js-plus-social-preview.png",
+  "platform": "GitHub repository Social preview",
+  "width": 1280,
+  "height": 640,
+  "format": "PNG",
+  "safeArea": 64,
+  "exactCopy": [
+    "BROWSER WATERMARK LIBRARY",
+    "watermark-js-plus",
+    "Browser watermarks",
+    "for any framework",
+    "Visible",
+    "Image",
+    "Blind",
+    "TypeScript · Framework agnostic",
+    "npm install watermark-js-plus"
+  ],
+  "sources": {
+    "composition": "watermark-js-plus-social-preview.svg",
+    "generatedBackground": "social-preview-background.png",
+    "projectLogo": "../../docs/public/logo.png"
+  },
+  "provenance": "The text-free product illustration was generated for this asset. All copy, logo placement, dimensions, and final export composition are deterministic."
+}

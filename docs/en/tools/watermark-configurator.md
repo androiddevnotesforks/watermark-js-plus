@@ -1,23 +1,25 @@
 ---
 layout: doc
+description: Configure a watermark interactively, preview changes on the page, and copy the generated initialization code.
 ---
 
 <el-backtop></el-backtop>
 
-# Custom Configs
+# Watermark Configurator
+
+Adjust the options to update the watermark on this page, then copy the generated initialization code.
+
+**Related:** [Watermark guide](/guide/watermark) · [Watermark options](/config/) · [Watermark methods](/config/function)
 
 <script setup lang="ts">
-import { reactive, getCurrentInstance, onMounted } from 'vue';
-import { useData } from 'vitepress';
-import WatermarkOptionsForm from '../../../.vitepress/components/WatermarkOptionsForm.vue';
+import { reactive } from 'vue';
+import WatermarkOptionsForm from '../../.vitepress/components/WatermarkOptionsForm.vue';
 // import { cloneDeep } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import { useAppStore } from '../../../.vitepress/stores/app';
+import { useAppStore } from '../../.vitepress/stores/app';
 
 const appStore = useAppStore();
 
-const { isDark } = useData();
-const app = getCurrentInstance();
 const initialWatermarkOptions = {
   width: 300,
   height: 300,
@@ -27,9 +29,6 @@ const initialWatermarkOptions = {
 let outputWatermarkOptions = reactive(
   cloneDeep(initialWatermarkOptions)
 )
-
-onMounted(() => {
-});
 
 const handleAddWatermark = () => {
   appStore.createWatermark(outputWatermarkOptions)

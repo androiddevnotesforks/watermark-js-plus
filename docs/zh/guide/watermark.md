@@ -2,7 +2,7 @@
 layout: doc
 description: 使用 Watermark API 为浏览器页面添加可配置的文本、图片、富文本、动态和容器水印。
 ---
-# 明水印
+# Watermark
 
 <script setup lang="ts">
 import VPButton from 'vitepress/dist/client/theme-default/components/VPButton.vue';
@@ -160,6 +160,8 @@ const handleRemoveChildElementWatermark = () => {
 </script>
 
 <el-backtop></el-backtop>
+
+使用[水印配置生成器](/zh/tools/watermark-configurator)可以交互式调整参数并生成初始化代码。精确的 API 说明参见 [Watermark 配置项](/zh/config/)和 [Watermark 方法](/zh/config/function)。
 
 ## 文本水印
 

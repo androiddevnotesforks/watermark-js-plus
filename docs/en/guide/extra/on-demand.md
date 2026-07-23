@@ -1,34 +1,38 @@
 ---
 layout: doc
+description: Import watermark-js-plus from its ES module entry for modern bundlers and tree shaking.
 ---
 
 <el-backtop></el-backtop>
 
-# On Demand
-This guide explains how to use the on-demand loading feature in watermark-js-plus to optimize your application's performance by only loading the components you need.
+# ES Module Imports
 
-## NPM
+watermark-js-plus provides an ES module entry for modern build tools. Import the public classes your application uses from `watermark-js-plus/es`, then let your bundler handle tree shaking and production optimization.
 
-When using npm, you can import specific components directly to reduce bundle size
+## Import from the ES module entry
 
 ```ts
-// Import only the Watermark component
+// Watermark class
 import { Watermark } from 'watermark-js-plus/es'
 
-// Import only the BlindWatermark component
+// Blind watermarks and decoding
 import { BlindWatermark } from 'watermark-js-plus/es'
 
-// Import only the ImageWatermark component
+// Watermarks rendered into an image
 import { ImageWatermark } from 'watermark-js-plus/es'
 
-// Note: If you use the movable parameter, you must import the style file
+// Required when using the movable option
 import 'watermark-js-plus/style.css'
 ```
 
-## Benefits
-- Reduced Bundle Size : Only load the components you actually use
-- Improved Performance : Smaller JavaScript payloads lead to faster page loads
-- Better User Experience : Quicker initial rendering and interaction
-- Lower Network Usage : Especially beneficial for users on limited data plans
+You can also group multiple imports in one statement:
 
-On-demand loading is particularly useful for large applications where you might only need specific watermark functionality in certain parts of your application.
+```ts
+import { BlindWatermark, Watermark } from 'watermark-js-plus/es'
+```
+
+## When to use it
+
+Use the `/es` entry when your application is built with an ES module-aware bundler such as Vite, Rollup, or webpack. The final bundle depends on your bundler configuration and the code your application actually imports.
+
+For most applications, importing from the package root remains the simplest option. Use the ES module entry when you need explicit control over the module format or want to inspect and optimize the generated bundle.

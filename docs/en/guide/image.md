@@ -76,6 +76,8 @@ const handleRemoveImageWatermark = () => {
 
 <el-backtop></el-backtop>
 
+For precise API details, see [ImageWatermark options](/config/#image-watermark-options) and the applicable methods in [Watermark methods](/config/function).
+
 ## Text Watermark
 
 <div class="text-card">

@@ -5,7 +5,9 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 
 <el-backtop></el-backtop>
 
-# Blind Watermark Decoding
+# BlindWatermark.decode Options
+
+**Related:** [Blind watermark guide](/guide/blind-watermark) · [Blind Watermark Decoder](/tools/blind-watermark-decoder)
 
 ## url
 - **Type**: `string`
@@ -37,14 +39,6 @@ description: Configure BlindWatermark.decode to enhance and reveal a blind water
 - **Type**: `Function | undefined`
 - **Default**: `undefined`
 - **Description**: Callback after successful decoding; its parameter is the processed PNG Data URL.
-
-## Decoding Principle
-Blind watermark decoding works through these steps:
-1. Load image containing blind watermark
-2. Create canvas and draw original image
-3. Apply specified composite operation and fill color
-4. Repeat composite operation multiple times to enhance watermark visibility
-5. Output processed image
 
 ## Usage Example
 ```javascript

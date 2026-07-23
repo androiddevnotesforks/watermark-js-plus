@@ -1,19 +1,21 @@
 ---
 layout: doc
+description: 交互式调整水印参数，在页面中预览效果，并复制生成的初始化代码。
 ---
-# 自定义配置
+# 水印配置生成器
+
+调整参数即可更新当前页面的水印效果，并复制自动生成的初始化代码。
+
+**相关内容：** [Watermark 指南](/zh/guide/watermark) · [Watermark 配置项](/zh/config/) · [Watermark 方法](/zh/config/function)
 
 <script setup lang="ts">
-import { reactive, getCurrentInstance, onMounted } from 'vue';
-import { useData } from 'vitepress';
-import WatermarkOptionsForm from '../../../.vitepress/components/WatermarkOptionsForm.vue';
+import { reactive } from 'vue';
+import WatermarkOptionsForm from '../../.vitepress/components/WatermarkOptionsForm.vue';
 // import { cloneDeep } from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
-import { useAppStore } from '../../../.vitepress/stores/app';
+import { useAppStore } from '../../.vitepress/stores/app';
 
 const appStore = useAppStore();
-const { isDark } = useData();
-const app = getCurrentInstance();
 const initialWatermarkOptions = {
   width: 300,
   height: 300,
@@ -23,9 +25,6 @@ const initialWatermarkOptions = {
 let outputWatermarkOptions = reactive(
   cloneDeep(initialWatermarkOptions)
 )
-
-onMounted(() => {
-});
 
 const handleAddWatermark = () => {
   appStore.createWatermark(outputWatermarkOptions)

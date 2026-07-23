@@ -1,10 +1,11 @@
 ---
 layout: doc
+description: 使用 Internet Explorer 构建和暗水印解码回退支持旧版浏览器。
 ---
 
 <el-backtop></el-backtop>
 
-# Internet Explorer
+# 旧版浏览器支持
 支持IE11，部分支持IE10和IE9。
 
 ## NPM
@@ -26,8 +27,4 @@ IE 版本为暗水印解析使用的 `overlay` 和 `color-burn` Canvas 混合模
 
 > 我们建议使用 CDN 引入用户在链接地址上锁定版本，以免将来插件升级时受到非兼容性更新的影响。锁定版本的方法请查看 [unpkg.com](https://unpkg.com/)。
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/sunzhenxuan/embed/JjQMryG?default-tab=html&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/sunzhenxuan/pen/JjQMryG">
-  Untitled</a> by zhensherlock (<a href="https://codepen.io/sunzhenxuan">@sunzhenxuan</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/sunzhenxuan/embed/JjQMryG?default-tab=html&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>

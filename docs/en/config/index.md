@@ -5,7 +5,9 @@ description: Reference all watermark-js-plus options for content, layout, typogr
 
 <el-backtop></el-backtop>
 
-# Watermark Configuration Options
+# Watermark Options
+
+**Related:** [Watermark guide](/guide/watermark) · [Watermark Configurator](/tools/watermark-configurator)
 
 ## Basic Configuration
 
@@ -377,7 +379,7 @@ Multiple filters can be combined by space-separating them (e.g., `brightness(120
 - **Default**: `() => {}`
 - **Description**: Called when mutation observation fails.
 
-## ImageWatermark-only Configuration
+## ImageWatermark-only Configuration {#image-watermark-options}
 
 ### dom
 - **Type**: `HTMLImageElement`

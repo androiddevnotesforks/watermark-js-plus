@@ -1,13 +1,16 @@
 ---
 layout: doc
+description: Reference the option values that BlindWatermark enforces while inheriting standard Watermark capabilities.
 ---
 
 <el-backtop></el-backtop>
 
-# Blind Watermark Configuration
+# BlindWatermark Options
+
+**Related:** [Blind watermark guide](/guide/blind-watermark) · [Watermark options](/config/)
 
 ## Inheritance Note
-This configuration **inherits all options** from [Watermark Configuration Options](index.md), but **enforces fixed values** for:
+This configuration **inherits all options** from [Watermark Options](index.md), but **enforces fixed values** for:
 - `globalAlpha`: Always `0.005` (cannot be modified)
 - `mode`: Always `'blind'` (cannot be modified)
 
@@ -22,13 +25,6 @@ This configuration **inherits all options** from [Watermark Configuration Option
 - **Type**: `string`
 - **Fixed Value**: `'blind'`
 - **Description**: Locked in blind watermark mode. Changing this value has no effect.
-
-## Technical Implementation
-The blind watermark:
-1. Inherits all standard watermark capabilities
-2. Automatically enforces `globalAlpha=0.005` during initialization and all updates
-3. Permanently sets `mode='blind'` (even if other values are provided)
-4. Maintains all other configurable options from the parent class
 
 ## Example Usage
 ```javascript

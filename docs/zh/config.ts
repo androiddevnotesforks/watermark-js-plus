@@ -8,7 +8,8 @@ export default defineAdditionalConfig({
     // lastUpdatedText: '上次更新',
     nav: [
       { text: '指南', link: '/zh/guide/what-is-this', activeMatch: '/guide/' },
-      { text: '配置项', link: '/zh/config/', activeMatch: '/config/' },
+      { text: '在线工具', link: '/zh/tools/', activeMatch: '/tools/' },
+      { text: 'API 参考', link: '/zh/config/', activeMatch: '/config/' },
       {
         text: '社区',
         items: [
@@ -33,41 +34,45 @@ export default defineAdditionalConfig({
     sidebar: {
       '/zh/guide': [
         {
-          text: '向导',
+          text: '指南',
           // collapsible: true,
           items: [
             { text: '介绍', link: '/zh/guide/what-is-this' },
             { text: '开始使用', link: '/zh/guide/getting-started' },
-            { text: '水印', link: '/zh/guide/watermark' },
-            { text: '暗水印', link: '/zh/guide/blind-watermark' },
+            { text: 'Watermark', link: '/zh/guide/watermark' },
             { text: '图片水印', link: '/zh/guide/image' },
+            { text: '暗水印', link: '/zh/guide/blind-watermark' },
           ]
         },
         {
-          text: '自定义',
+          text: '资源',
           items: [
-            { text: '配置', link: '/zh/guide/custom/configs' },
-            { text: '解析', link: '/zh/guide/custom/decode' },
-          ]
-        },
-        {
-          text: '扩展',
-          items: [
-            { text: 'Internet Explorer', link: '/zh/guide/extra/ie' },
-            { text: '按需加载', link: '/zh/guide/extra/on-demand' },
             { text: '示例', link: '/zh/guide/extra/examples' },
+            { text: 'ES 模块导入', link: '/zh/guide/extra/on-demand' },
+            { text: '旧版浏览器支持', link: '/zh/guide/extra/ie' },
+          ]
+        }
+      ],
+      '/zh/tools': [
+        {
+          text: '在线工具',
+          items: [
+            { text: '工具总览', link: '/zh/tools/' },
+            { text: '水印配置生成器', link: '/zh/tools/watermark-configurator' },
+            { text: '暗水印解码器', link: '/zh/tools/blind-watermark-decoder' },
           ]
         }
       ],
       '/zh/config': [
         {
-          text: '配置',
+          text: 'API 参考',
           // collapsible: true,
           items: [
-            { text: '基础配置项', link: '/zh/config/' },
-            { text: '基础方法', link: '/zh/config/function' },
-            { text: '暗水印配置项', link: '/zh/config/blind' },
-            { text: '暗水印解码配置项', link: '/zh/config/blind-decode' },
+            { text: 'Watermark 配置项', link: '/zh/config/' },
+            { text: 'Watermark 方法', link: '/zh/config/function' },
+            { text: 'ImageWatermark 配置项', link: '/zh/config/#image-watermark-options' },
+            { text: 'BlindWatermark 配置项', link: '/zh/config/blind' },
+            { text: '解码参数', link: '/zh/config/blind-decode' },
           ]
         }
       ]

@@ -1,17 +1,19 @@
 ---
 layout: doc
+description: 上传或粘贴图片，在浏览器中调整解码参数并显现其中的暗水印。
 ---
+# 暗水印解码器
 
-<el-backtop></el-backtop>
+上传或粘贴一张包含暗水印的图片，然后调整参数以显现水印内容。
 
-# Decode Configs
+**相关内容：** [暗水印指南](/zh/guide/blind-watermark) · [解码参数](/zh/config/blind-decode)
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { UploadFilled } from '@element-plus/icons-vue';
 import { genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus';
-import { BlindWatermark } from '../../../../src';
+import { BlindWatermark } from '../../../src';
 
 const upload = ref<UploadInstance>();
 const fileList = ref<UploadUserFile[]>([]);
@@ -153,7 +155,7 @@ onUnmounted(() => {
 
 <div>
   <section class="upload-section" aria-labelledby="decode-image-title">
-    <div id="decode-image-title" class="title">Image</div>
+    <div id="decode-image-title" class="title">原图</div>
     <el-upload
       ref="upload"
       v-model:file-list="fileList"
@@ -170,39 +172,39 @@ onUnmounted(() => {
     >
       <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
       <div class="el-upload__text">
-        Drop image here or <em>click to upload</em>
+        将图片拖到此处或<em>点击上传</em>
       </div>
       <template #tip>
-        <div class="el-upload__tip">Images only · You can also paste with Ctrl+V or Cmd+V</div>
+        <div class="el-upload__tip">仅支持图片 · 也可按 Ctrl+V 或 Cmd+V 粘贴上传</div>
       </template>
     </el-upload>
     <el-dialog v-model="previewVisible">
-      <img class="preview-dialog-image" :src="previewImageUrl" alt="Image preview" />
+      <img class="preview-dialog-image" :src="previewImageUrl" alt="图片预览" />
     </el-dialog>
   </section>
-  <div class="title">Arguments</div>
-  
+  <div class="title">解码参数</div>
+
   <el-descriptions :column="1" border>
-    <el-descriptions-item label="Theme">
+    <el-descriptions-item label="图片背景">
       <el-radio-group v-model="theme" @change="handleChangeTheme">
-        <el-radio-button label="Light" value="light" />
-        <el-radio-button label="Dark" value="dark" />
+        <el-radio-button label="浅色" value="light" />
+        <el-radio-button label="深色" value="dark" />
       </el-radio-group>
     </el-descriptions-item>
-    <el-descriptions-item label="CompositeOperation">
-      <el-select style="width: 400px" v-model="compositeOperation" filterable placeholder="please input composite operation" @change="handleChangeCompositeOperation">
+    <el-descriptions-item label="合成模式（compositeOperation）">
+      <el-select style="width: 400px" v-model="compositeOperation" filterable placeholder="请选择合成模式" @change="handleChangeCompositeOperation">
         <el-option v-for="item in compositeOperations" :key="item" :label="item" :value="item" />
       </el-select>
     </el-descriptions-item>
-    <el-descriptions-item label="CompositeTimes">
+    <el-descriptions-item label="合成次数（compositeTimes）">
       <el-input-number v-model="compositeTimes" @change="handleChangeCompositeTimes" />
     </el-descriptions-item>
-    <el-descriptions-item label="FillColor">
+    <el-descriptions-item label="填充颜色（fillColor）">
       <el-color-picker v-model="fillColor" @change="handleChangeFillColor" />
     </el-descriptions-item>
   </el-descriptions>
 
-  <div class="title">Result</div>
+  <div class="title">解码结果</div>
   <el-image
     v-if="resultImageUrl"
     style="width: 400px; height: 400px"
@@ -210,8 +212,10 @@ onUnmounted(() => {
     :preview-src-list="[resultImageUrl]"
     fit="cover"
   />
-  <el-empty v-else description="Please upload an image" />
+  <el-empty v-else description="上传图片后即可查看解码结果" />
 </div>
+
+<el-backtop></el-backtop>
 
 <style scoped>
 .title {

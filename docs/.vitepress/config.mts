@@ -81,9 +81,9 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/zhensherlock/watermark-js-plus' },
     ],
     nav: [
-      { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/what-is-this', activeMatch: '/guide/' },
-      { text: 'Configs', link: '/config/', activeMatch: '/config/' },
+      { text: 'Tools', link: '/tools/', activeMatch: '/tools/' },
+      { text: 'API Reference', link: '/config/', activeMatch: '/config/' },
       {
         text: 'Community',
         items: [
@@ -107,38 +107,42 @@ export default defineConfig({
           text: 'Guide',
           // collapsible: true,
           items: [
-            { text: 'Introduce', link: '/guide/what-is-this' },
+            { text: 'Introduction', link: '/guide/what-is-this' },
             { text: 'Getting Started', link: '/guide/getting-started' },
             { text: 'Watermark', link: '/guide/watermark' },
+            { text: 'Image Watermark', link: '/guide/image' },
             { text: 'Blind Watermark', link: '/guide/blind-watermark' },
-            { text: 'Image', link: '/guide/image' },
           ]
         },
         {
-          text: 'Custom',
+          text: 'Resources',
           items: [
-            { text: 'Configs', link: '/guide/custom/configs' },
-            { text: 'Decode', link: '/guide/custom/decode' },
-          ]
-        },
-        {
-          text: 'Extra',
-          items: [
-            { text: 'Internet Explorer', link: '/guide/extra/ie' },
-            { text: 'On demand', link: '/guide/extra/on-demand' },
             { text: 'Examples', link: '/guide/extra/examples' },
+            { text: 'ES Module Imports', link: '/guide/extra/on-demand' },
+            { text: 'Legacy Browser Support', link: '/guide/extra/ie' },
+          ]
+        }
+      ],
+      '/tools': [
+        {
+          text: 'Tools',
+          items: [
+            { text: 'Overview', link: '/tools/' },
+            { text: 'Watermark Configurator', link: '/tools/watermark-configurator' },
+            { text: 'Blind Watermark Decoder', link: '/tools/blind-watermark-decoder' },
           ]
         }
       ],
       '/config': [
         {
-          text: 'Config',
+          text: 'API Reference',
           // collapsible: true,
           items: [
-            { text: 'Basic Config', link: '/config/' },
-            { text: 'Basic Function', link: '/config/function' },
-            { text: 'Blind Watermark Config', link: '/config/blind' },
-            { text: 'Blind Watermark Decode', link: '/config/blind-decode' },
+            { text: 'Watermark Options', link: '/config/' },
+            { text: 'Watermark Methods', link: '/config/function' },
+            { text: 'ImageWatermark Options', link: '/config/#image-watermark-options' },
+            { text: 'BlindWatermark Options', link: '/config/blind' },
+            { text: 'Decode Options', link: '/config/blind-decode' },
           ]
         }
       ]
